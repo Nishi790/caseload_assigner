@@ -32,8 +32,10 @@ func _ready() -> void:
 	for selector: OptionButton in all_selectors:
 		selector.add_item("No Therapist")
 		selector.select(0)
+		selector.tooltip_text = "No Therapist"
 		selector.set_item_metadata(0, null)
 		selector.item_selected.connect(change_assignment.bind(selector))
+
 
 	mon_am_selector.set_meta(block_name, Schedule.Block.MONDAY_AM)
 	mon_pm_selector.set_meta(block_name, Schedule.Block.MONDAY_PM)
@@ -74,6 +76,7 @@ func set_up_for_client(new_client: Client, therapist_list: Array[Therapist]) -> 
 			if selector_therapist == therapist:
 				selector.selected = item_index
 				selector.theme_type_variation = "filled"
+				selector.tooltip_text = selector.get_item_text(item_index)
 				break
 
 	for block: Schedule.Block in client.unfilled_slots:
@@ -82,7 +85,9 @@ func set_up_for_client(new_client: Client, therapist_list: Array[Therapist]) -> 
 
 
 
-func change_assignment(_selected_index: int, selector: OptionButton) -> void:
+func change_assignment(selected_index: int, selector: OptionButton) -> void:
+	selector.tooltip_text = selector.get_item_text(selected_index)
+
 	var impacted_therapists: Array[Therapist] = []
 	var block: Schedule.Block = selector.get_meta(block_name)
 	var current_thx: Therapist

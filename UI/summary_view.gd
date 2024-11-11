@@ -25,7 +25,7 @@ func _on_return_to_tab(id: int) -> void:
 
 func _update_changed_client(section: SummarySection, affected_client: Client) -> void:
 	for organizer: Control in summary_organizer.get_children():
-		if organizer is not SummarySection or organizer == section:
+		if organizer == section or organizer is not SummarySection:
 			continue
 
 		organizer.refresh_client(affected_client)

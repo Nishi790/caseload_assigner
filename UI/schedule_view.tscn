@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://306agrwgt51h"]
+[gd_scene load_steps=6 format=3 uid="uid://306agrwgt51h"]
 
 [ext_resource type="PackedScene" uid="uid://ulss7unlmaei" path="res://UI/person_entry.tscn" id="1_gj3bk"]
 [ext_resource type="Script" path="res://UI/schedule_view.gd" id="1_n0xfh"]
 [ext_resource type="PackedScene" uid="uid://de8mc07iaext6" path="res://UI/therapist_entry.tscn" id="3_dp36t"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_8ajca"]
+font_size = 22
+
 [sub_resource type="LabelSettings" id="LabelSettings_2r55g"]
 line_spacing = 4.0
 font_size = 19
+font_color = Color(0.787759, 0.787759, 0.787759, 1)
 
 [node name="ScheduleView" type="PanelContainer" node_paths=PackedStringArray("client_schedule_container", "staff_schedule_container", "site_selector")]
 anchors_preset = 15
@@ -17,9 +21,9 @@ grow_vertical = 2
 script = ExtResource("1_n0xfh")
 client_entry_scene = ExtResource("1_gj3bk")
 therapist_entry_scene = ExtResource("3_dp36t")
-client_schedule_container = NodePath("MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients")
+client_schedule_container = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Clients")
 staff_schedule_container = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Therapists")
-site_selector = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Site")
+site_selector = NodePath("MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Site")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -32,7 +36,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Site" type="OptionButton" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Schedule"
+label_settings = SubResource("LabelSettings_8ajca")
+horizontal_alignment = 1
+
+[node name="Site" type="OptionButton" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 selected = 0
@@ -47,97 +61,197 @@ popup/item_3/id = 3
 popup/item_4/text = "Pembroke"
 popup/item_4/id = 4
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 
-[node name="Clients" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer"]
+[node name="ClientTitles" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Titles" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients"]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients/Titles"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Name" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Client"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
-[node name="Mon" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients/Titles"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Mon" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Mon(AM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
-[node name="Tues" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients/Titles"]
+[node name="Tues" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Tues(AM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
-[node name="Wed" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients/Titles"]
+[node name="Wed" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Wed(AM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
-[node name="Thurs" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients/Titles"]
+[node name="Thurs" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Thurs(AM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
-[node name="Frid" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients/Titles"]
+[node name="Frid" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Fri(AM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
-[node name="Mon2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients/Titles"]
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Mon2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Mon(PM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
-[node name="Tues2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients/Titles"]
+[node name="Tues2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Tues(PM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
-[node name="Wed2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients/Titles"]
+[node name="Wed2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Wed(PM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
-[node name="Thurs2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients/Titles"]
+[node name="Thurs2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Thurs(PM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
-[node name="Frid2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients/Titles"]
+[node name="Frid2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Fri(PM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
-[node name="PersonEntry" parent="MarginContainer/ScrollContainer/VBoxContainer/CenterContainer/Clients" instance=ExtResource("1_gj3bk")]
+[node name="Clients" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="TherapistTitles" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Therapist"
+label_settings = SubResource("LabelSettings_2r55g")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Mon" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mon(AM)"
+label_settings = SubResource("LabelSettings_2r55g")
+horizontal_alignment = 1
+
+[node name="Tues" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tues(AM)"
+label_settings = SubResource("LabelSettings_2r55g")
+horizontal_alignment = 1
+
+[node name="Wed" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wed(AM)"
+label_settings = SubResource("LabelSettings_2r55g")
+horizontal_alignment = 1
+
+[node name="Thurs" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Thurs(AM)"
+label_settings = SubResource("LabelSettings_2r55g")
+horizontal_alignment = 1
+
+[node name="Frid" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fri(AM)"
+label_settings = SubResource("LabelSettings_2r55g")
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Mon2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mon(PM)"
+label_settings = SubResource("LabelSettings_2r55g")
+horizontal_alignment = 1
+
+[node name="Tues2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tues(PM)"
+label_settings = SubResource("LabelSettings_2r55g")
+horizontal_alignment = 1
+
+[node name="Wed2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wed(PM)"
+label_settings = SubResource("LabelSettings_2r55g")
+horizontal_alignment = 1
+
+[node name="Thurs2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Thurs(PM)"
+label_settings = SubResource("LabelSettings_2r55g")
+horizontal_alignment = 1
+
+[node name="Frid2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fri(PM)"
+label_settings = SubResource("LabelSettings_2r55g")
+horizontal_alignment = 1
 
 [node name="Therapists" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2

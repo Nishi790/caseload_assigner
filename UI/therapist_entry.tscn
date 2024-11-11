@@ -10,110 +10,119 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bofwp")
 name_label = NodePath("ThxName")
-mon_am_label = NodePath("PanelContainer/MonAM")
-tues_am_label = NodePath("PanelContainer2/TuesAM")
-wed_am_label = NodePath("PanelContainer3/WedAM")
-thurs_am_label = NodePath("PanelContainer4/ThursAM")
-fri_am_label = NodePath("PanelContainer5/FriAM")
-mon_pm_label = NodePath("PanelContainer6/MonPM")
-tues_pm_label = NodePath("PanelContainer7/TuesPM")
-wed_pm_label = NodePath("PanelContainer8/WedPM")
-thurs_pm_label = NodePath("PanelContainer9/ThursPM")
-fri_pm_label = NodePath("PanelContainer10/FriPM")
+mon_am_label = NodePath("HBoxContainer/PanelContainer/MonAM")
+tues_am_label = NodePath("HBoxContainer/PanelContainer2/TuesAM")
+wed_am_label = NodePath("HBoxContainer/PanelContainer3/WedAM")
+thurs_am_label = NodePath("HBoxContainer/PanelContainer4/ThursAM")
+fri_am_label = NodePath("HBoxContainer/PanelContainer5/FriAM")
+mon_pm_label = NodePath("HBoxContainer2/PanelContainer6/MonPM")
+tues_pm_label = NodePath("HBoxContainer2/PanelContainer7/TuesPM")
+wed_pm_label = NodePath("HBoxContainer2/PanelContainer8/WedPM")
+thurs_pm_label = NodePath("HBoxContainer2/PanelContainer9/ThursPM")
+fri_pm_label = NodePath("HBoxContainer2/PanelContainer10/FriPM")
 
 [node name="ThxName" type="Label" parent="."]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"site_panel"
-
-[node name="MonAM" type="Label" parent="PanelContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"site_panel"
 
-[node name="TuesAM" type="Label" parent="PanelContainer2"]
+[node name="MonAM" type="Label" parent="HBoxContainer/PanelContainer"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="PanelContainer3" type="PanelContainer" parent="."]
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"site_panel"
 
-[node name="WedAM" type="Label" parent="PanelContainer3"]
+[node name="TuesAM" type="Label" parent="HBoxContainer/PanelContainer2"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="PanelContainer4" type="PanelContainer" parent="."]
+[node name="PanelContainer3" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"site_panel"
 
-[node name="ThursAM" type="Label" parent="PanelContainer4"]
+[node name="WedAM" type="Label" parent="HBoxContainer/PanelContainer3"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="PanelContainer5" type="PanelContainer" parent="."]
+[node name="PanelContainer4" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"site_panel"
 
-[node name="FriAM" type="Label" parent="PanelContainer5"]
+[node name="ThursAM" type="Label" parent="HBoxContainer/PanelContainer4"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="PanelContainer5" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"site_panel"
+
+[node name="FriAM" type="Label" parent="HBoxContainer/PanelContainer5"]
 layout_mode = 2
 horizontal_alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="."]
 layout_mode = 2
 
-[node name="PanelContainer6" type="PanelContainer" parent="."]
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer6" type="PanelContainer" parent="HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"site_panel"
 
-[node name="MonPM" type="Label" parent="PanelContainer6"]
+[node name="MonPM" type="Label" parent="HBoxContainer2/PanelContainer6"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="PanelContainer7" type="PanelContainer" parent="."]
+[node name="PanelContainer7" type="PanelContainer" parent="HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"site_panel"
 
-[node name="TuesPM" type="Label" parent="PanelContainer7"]
+[node name="TuesPM" type="Label" parent="HBoxContainer2/PanelContainer7"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="PanelContainer8" type="PanelContainer" parent="."]
+[node name="PanelContainer8" type="PanelContainer" parent="HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"site_panel"
 
-[node name="WedPM" type="Label" parent="PanelContainer8"]
+[node name="WedPM" type="Label" parent="HBoxContainer2/PanelContainer8"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="PanelContainer9" type="PanelContainer" parent="."]
+[node name="PanelContainer9" type="PanelContainer" parent="HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"site_panel"
 
-[node name="ThursPM" type="Label" parent="PanelContainer9"]
+[node name="ThursPM" type="Label" parent="HBoxContainer2/PanelContainer9"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="PanelContainer10" type="PanelContainer" parent="."]
+[node name="PanelContainer10" type="PanelContainer" parent="HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"site_panel"
 
-[node name="FriPM" type="Label" parent="PanelContainer10"]
+[node name="FriPM" type="Label" parent="HBoxContainer2/PanelContainer10"]
 layout_mode = 2
 horizontal_alignment = 1

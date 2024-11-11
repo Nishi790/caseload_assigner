@@ -4,39 +4,46 @@
 
 [node name="ClientSelector" type="PopupPanel" node_paths=PackedStringArray("client_list", "confirm_button", "delete_button", "cancel_button")]
 auto_translate_mode = 1
-size = Vector2i(355, 500)
+size = Vector2i(403, 500)
 visible = true
 script = ExtResource("1_adstn")
-client_list = NodePath("VBoxContainer/TherapistList")
-confirm_button = NodePath("VBoxContainer/Confirm/Confirm")
-delete_button = NodePath("VBoxContainer/Confirm/Button")
-cancel_button = NodePath("VBoxContainer/Confirm/Cancel")
+client_list = NodePath("MarginContainer/VBoxContainer/TherapistList")
+confirm_button = NodePath("MarginContainer/VBoxContainer/Confirm/Confirm")
+delete_button = NodePath("MarginContainer/VBoxContainer/Confirm/Button")
+cancel_button = NodePath("MarginContainer/VBoxContainer/Confirm/Cancel")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 351.0
+offset_right = 399.0
 offset_bottom = 496.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
 
-[node name="SelectTitle" type="Label" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-text = "Select Entry to Edit:"
 
-[node name="TherapistList" type="ItemList" parent="VBoxContainer"]
+[node name="SelectTitle" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Select Client to Edit:"
+
+[node name="TherapistList" type="ItemList" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Confirm" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Confirm" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="Confirm" type="Button" parent="VBoxContainer/Confirm"]
+[node name="Confirm" type="Button" parent="MarginContainer/VBoxContainer/Confirm"]
 layout_mode = 2
 text = "Confirm Selection"
 
-[node name="Button" type="Button" parent="VBoxContainer/Confirm"]
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/Confirm"]
 layout_mode = 2
 text = "Delete Selection"
 
-[node name="Cancel" type="Button" parent="VBoxContainer/Confirm"]
+[node name="Cancel" type="Button" parent="MarginContainer/VBoxContainer/Confirm"]
 layout_mode = 2
 text = "Cancel"

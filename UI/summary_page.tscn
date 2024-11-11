@@ -78,6 +78,7 @@ horizontal_alignment = 1
 
 [node name="MorningLabel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
 layout_mode = 2
+theme_type_variation = &"darker_panel"
 
 [node name="AM" type="Label" parent="Flags/OpenTherapistCounts/MorningLabel"]
 layout_mode = 2
@@ -85,6 +86,7 @@ text = "  Morning"
 
 [node name="MondayAMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
 layout_mode = 2
+theme_type_variation = &"darker_panel"
 
 [node name="MondayAM" type="Label" parent="Flags/OpenTherapistCounts/MondayAMPanel"]
 layout_mode = 2
@@ -92,6 +94,7 @@ horizontal_alignment = 1
 
 [node name="TuesdayAMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
 layout_mode = 2
+theme_type_variation = &"darker_panel"
 
 [node name="TuesdayAM" type="Label" parent="Flags/OpenTherapistCounts/TuesdayAMPanel"]
 layout_mode = 2
@@ -99,6 +102,7 @@ horizontal_alignment = 1
 
 [node name="WednesdayAMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
 layout_mode = 2
+theme_type_variation = &"darker_panel"
 
 [node name="WednesdayAM" type="Label" parent="Flags/OpenTherapistCounts/WednesdayAMPanel"]
 layout_mode = 2
@@ -106,6 +110,7 @@ horizontal_alignment = 1
 
 [node name="ThursdayAMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
 layout_mode = 2
+theme_type_variation = &"darker_panel"
 
 [node name="ThursdayAM" type="Label" parent="Flags/OpenTherapistCounts/ThursdayAMPanel"]
 layout_mode = 2
@@ -113,6 +118,7 @@ horizontal_alignment = 1
 
 [node name="FridayAMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
 layout_mode = 2
+theme_type_variation = &"darker_panel"
 
 [node name="FridayAM" type="Label" parent="Flags/OpenTherapistCounts/FridayAMPanel"]
 layout_mode = 2

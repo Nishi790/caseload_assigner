@@ -13,9 +13,16 @@ func _ready() -> void:
 	tab_changed.connect(schedule_view._on_return_to_tab)
 	tab_changed.connect(summary_view._on_return_to_tab)
 	tab_changed.connect(client_adder._on_return_to_tab)
+	tab_changed.connect(_on_tab_changed)
+	set_current_tab(CaseloadData.current_tab_index)
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		CaseloadData.save()
 		CaseloadData.release_therapist_references()
+		CaseloadData.save_config()
+
+
+func _on_tab_changed(index: int):
+	CaseloadData.current_tab_index = index

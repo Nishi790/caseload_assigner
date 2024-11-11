@@ -1,5 +1,5 @@
 class_name UnfilledClientDisplay
-extends HBoxContainer
+extends PanelContainer
 
 signal unfilled_slots_now_empty(affected_display: UnfilledClientDisplay)
 

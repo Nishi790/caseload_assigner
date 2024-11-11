@@ -2,29 +2,30 @@
 
 [ext_resource type="Script" path="res://UI/unfilled_slot_display.gd" id="1_aj75y"]
 
-[node name="UnfilledSlotDisplay" type="HBoxContainer" node_paths=PackedStringArray("client_label", "site_label", "slots_label")]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="UnfilledClientDisplay" type="PanelContainer" node_paths=PackedStringArray("client_label", "site_label", "slots_label")]
+offset_left = 1152.0
+offset_right = 1152.0
+offset_bottom = 648.0
 script = ExtResource("1_aj75y")
-client_label = NodePath("ClientName")
-site_label = NodePath("Site")
-slots_label = NodePath("SlotList")
+client_label = NodePath("UnfilledSlotDisplay/ClientName")
+site_label = NodePath("UnfilledSlotDisplay/Site")
+slots_label = NodePath("UnfilledSlotDisplay/SlotList")
 
-[node name="ClientName" type="Label" parent="."]
+[node name="UnfilledSlotDisplay" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ClientName" type="Label" parent="UnfilledSlotDisplay"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Client"
 horizontal_alignment = 1
 
-[node name="Site" type="Label" parent="."]
+[node name="Site" type="Label" parent="UnfilledSlotDisplay"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Lancaster"
 
-[node name="SlotList" type="Label" parent="."]
+[node name="SlotList" type="Label" parent="UnfilledSlotDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Monday am, Tuesday pm"

@@ -96,8 +96,10 @@ func display_unfilled_slots() -> void:
 	clients_to_display.sort_custom(func alphabetize(a: Client, b: Client) -> bool:
 		return a.client_name < b.client_name)
 
+	var use_darker_panel: bool = false
 	for client: Client in clients_to_display:
-		create_unfilled_display(client)
+		create_unfilled_display(client, use_darker_panel)
+		use_darker_panel = not use_darker_panel
 
 
 func display_requests() -> void:
@@ -109,21 +111,65 @@ func display_requests() -> void:
 	client_requests.sort_custom(func alphabetize(a: Client, b: Client) -> bool:
 		return a.client_name < b.client_name)
 
+	var use_darker_panel: bool = false
 	for client: Client in client_requests:
-		create_request_display(client)
+		create_request_display(client, use_darker_panel)
+		use_darker_panel = not use_darker_panel
 
 
 func move_request_to_unfilled(request_display: RequestedSlotDisplay) -> void:
 	request_display.queue_free()
 	request_entries.erase(request_display)
+	var first_dark: bool = false
+	if requests_container.get_child(1).theme_type_variation == "darker_panel":
+		first_dark = true
+	propagate_color_change(0, requests_container, first_dark)
 
 	var affected_client: Client = request_display.client
 
-	var new_unfilled_display: UnfilledClientDisplay = unfilled_list_scene.instantiate()
-	new_unfilled_display.initiate_display(affected_client)
-	unfilled_container.add_child(new_unfilled_display)
-	unfilled_entries.append(new_unfilled_display)
+	var display_to_erase: UnfilledClientDisplay
+	var index_for_new: int = -1
+	var dark: bool = false
 
+	var unfilled_name_array: Array[String] = []
+	var index: int = 0
+	for display: Control in unfilled_container.get_children():
+		if display is not UnfilledClientDisplay:
+			index += 1
+			continue
+		if display.client == affected_client:
+			display_to_erase = display
+			index_for_new = index
+			if display.theme_type_variation == "darker_panel":
+				dark = true
+			break
+		unfilled_name_array.append(display.client.client_name)
+		index += 1
+
+	if display_to_erase != null:
+		unfilled_entries.erase(display_to_erase)
+		display_to_erase.queue_free()
+		create_unfilled_display(affected_client, dark, index_for_new)
+
+	else:
+		var index_to_insert = Utilities.find_alphabetical_insertion_index(affected_client.client_name, unfilled_name_array)
+		if index_to_insert == -1:
+			var child_count: int = unfilled_container.get_child_count()
+			if child_count > 1:
+				var last_child: Node = unfilled_container.get_child(unfilled_container.get_child_count() - 1)
+				if last_child.theme_type_variation == "darker_panel":
+					dark = false
+				else:
+					dark = true
+			else:
+				dark = true
+			create_unfilled_display(affected_client, dark)
+		else:
+			if unfilled_container.get_child(index_to_insert).theme_type_variation == "darker_panel":
+				dark = false
+			else: dark = true
+			create_unfilled_display(affected_client, dark, index_to_insert + 1)
+			propagate_color_change(index_to_insert + 1, unfilled_container, not dark)
 	client_changed.emit(self, affected_client)
 
 
@@ -164,7 +210,7 @@ func refresh_client(client: Client) -> void:
 			continue
 		unfilled_name_array.append(unfilled.client.client_name)
 
-	for display: Control in unfilled_container.get_children():
+	for display: Control in requests_container.get_children():
 		if display is not RequestedSlotDisplay:
 			continue
 		if display.client == client:
@@ -174,20 +220,53 @@ func refresh_client(client: Client) -> void:
 		requested_name_array.append(display.client.client_name)
 
 	if (client.scheduled_site == site or site == Schedule.Site.ALL_SITES) and not client.unfilled_slots.is_empty():
+		var previous_type_variation: String
 		var unfilled_index: int = Utilities.find_alphabetical_insertion_index(client.client_name, unfilled_name_array)
 		if unfilled_index != -1:
 			unfilled_index += 1 #to account for title taking up index 0
-		create_unfilled_display(client, unfilled_index)
+			previous_type_variation = unfilled_container.get_child(unfilled_index - 1).get_theme_type_variation()
+		else:
+			if unfilled_container.get_child_count() > 1:
+				previous_type_variation = unfilled_container.get_child(unfilled_container.get_child_count() - 1).theme_type_variation
+			else:
+				previous_type_variation = "lighter_panel"
+		var dark: bool
+		if previous_type_variation == "darker_panel":
+			dark = false
+		else:
+			dark = true
+		create_unfilled_display(client, dark, unfilled_index)
+		propagate_color_change(unfilled_index, unfilled_container, not dark)
 
 	if (client.requested_site == site or site == Schedule.Site.ALL_SITES) and not client.requested_blocks.is_empty():
+		var previous_type_variation: String
 		var requested_index: int = Utilities.find_alphabetical_insertion_index(client.client_name, requested_name_array)
 		if requested_index != -1:
 			requested_index += 1
-		create_request_display(client)
+			previous_type_variation = requests_container.get_child(requested_index - 1).get_theme_type_variation()
+		else:
+			var child_count: int = requests_container.get_child_count()
+			if child_count > 1:
+				previous_type_variation = requests_container.get_child(child_count - 1).theme_type_variation
+			else:
+				previous_type_variation = "lighter_panel"
+
+		var dark: bool
+		if previous_type_variation == "darker_panel":
+			dark = false
+		else: dark = true
+		create_request_display(client, dark, requested_index)
+		propagate_color_change(requested_index, requests_container, not dark)
 
 
-func create_unfilled_display(client: Client, position_index: int = -1) -> void:
-	var unfilled_display = unfilled_list_scene.instantiate()
+func create_unfilled_display(client: Client, dark: bool = true, position_index: int = -1) -> void:
+	var unfilled_display: UnfilledClientDisplay = unfilled_list_scene.instantiate()
+
+	if dark:
+		unfilled_display.theme_type_variation = "darker_panel"
+	else:
+		unfilled_display.theme_type_variation = "lighter_panel"
+
 	unfilled_display.initiate_display(client)
 	unfilled_container.add_child(unfilled_display)
 	if position_index != -1:
@@ -195,8 +274,14 @@ func create_unfilled_display(client: Client, position_index: int = -1) -> void:
 	unfilled_entries.append(unfilled_display)
 
 
-func create_request_display(client: Client, position_index: int = -1) -> void:
+func create_request_display(client: Client, dark: bool = true, position_index: int = -1) -> void:
 	var open_request_display: RequestedSlotDisplay = request_scene.instantiate()
+
+	if dark:
+		open_request_display.theme_type_variation = "darker_panel"
+	else:
+		open_request_display.theme_type_variation = "lighter_panel"
+
 	open_request_display.initiate_display(client)
 	requests_container.add_child(open_request_display)
 	if position_index != -1:
@@ -244,3 +329,20 @@ func increment_block_count(block: Schedule.Block) -> void:
 			fri_am_count += 1
 		Schedule.Block.FRIDAY_PM:
 			fri_pm_count += 1
+
+
+func propagate_color_change(index: int, container: Container, first_one_dark: bool) -> void:
+	var dark: bool = first_one_dark
+	for container_index: int in container.get_child_count():
+		if container_index <= index:
+			continue
+		else:
+			var control_to_edit: Control = container.get_child(container_index)
+			if control_to_edit.is_queued_for_deletion():
+				continue
+
+			if dark:
+				control_to_edit.theme_type_variation = "darker_panel"
+			else:
+				control_to_edit.theme_type_variation = "lighter_panel"
+			dark = not dark

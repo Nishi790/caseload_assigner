@@ -12,7 +12,7 @@ func _ready() -> void:
 	confirm_button.pressed.connect(_edit_client)
 	delete_button.pressed.connect(_delete_client)
 	cancel_button.pressed.connect(hide)
-
+	about_to_popup.connect(_update_client_list)
 	_update_client_list()
 
 
@@ -36,7 +36,7 @@ func _update_client_list() -> void:
 
 	var index: int = 0
 	for client: Client in CaseloadData.active_clients:
-		var id_string: String = client.client_name + " " + str(client.AC_id)
+		var id_string: String = str(client.AC_id) + " " + client.client_name
 		client_list.add_item(id_string)
 		client_list.set_item_metadata(index, client)
 		index += 1

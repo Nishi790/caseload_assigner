@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2335b1amv3tf"]
+[gd_scene load_steps=8 format=3 uid="uid://b2335b1amv3tf"]
 
 [ext_resource type="Script" path="res://UI/main_view.gd" id="1_63lpq"]
 [ext_resource type="PackedScene" uid="uid://306agrwgt51h" path="res://UI/schedule_view.tscn" id="1_qgbmp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://UI/summary_view.gd" id="2_wse6r"]
 [ext_resource type="PackedScene" uid="uid://bahd2mied2bol" path="res://UI/add_therapist_page.tscn" id="4_j6g2b"]
 [ext_resource type="PackedScene" uid="uid://c0mqoud5k6g32" path="res://UI/client_editor.tscn" id="5_kqe7w"]
+[ext_resource type="PackedScene" uid="uid://cuhonxrxaj0hq" path="res://UI/save_load_data.tscn" id="7_ytwkp"]
 
 [node name="MainView" type="TabContainer" node_paths=PackedStringArray("schedule_view", "summary_view", "therapist_adder", "client_adder")]
 anchors_preset = 15
@@ -59,3 +60,8 @@ metadata/_tab_index = 2
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
+
+[node name="Menu" parent="." instance=ExtResource("7_ytwkp")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4

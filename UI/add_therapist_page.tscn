@@ -15,21 +15,21 @@ create_new_button = NodePath("CenterContainer/VBoxContainer/Options/NewThx")
 edit_existing = NodePath("CenterContainer/VBoxContainer/Options/Edit")
 name_line = NodePath("CenterContainer/VBoxContainer/Name/LineEdit")
 role_selector = NodePath("CenterContainer/VBoxContainer/Role")
-monday_location = NodePath("CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday/Site")
-monday_am_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday/AM")
-monday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday/PM")
-tuesday_location = NodePath("CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday/Site")
-tuesday_am_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday/AM")
-tuesday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday/PM")
-wednesday_location = NodePath("CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday/Site")
-wednesday_am_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday/AM")
-wednesday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday/PM")
-thursday_location = NodePath("CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday/Site")
-thursday_am_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday/AM")
-thursday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday/PM")
-friday_location = NodePath("CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday/Site")
-friday_am_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday/AM")
-friday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday/PM")
+monday_location = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/MondayMargins/Monday/Site")
+monday_am_checkbox = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/MondayMargins/Monday/AM")
+monday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/MondayMargins/Monday/PM")
+tuesday_location = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/TuesdayMargins/Tuesday/Site")
+tuesday_am_checkbox = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/TuesdayMargins/Tuesday/AM")
+tuesday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/TuesdayMargins/Tuesday/PM")
+wednesday_location = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/WednesdayMargins/Wednesday/Site")
+wednesday_am_checkbox = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/WednesdayMargins/Wednesday/AM")
+wednesday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/WednesdayMargins/Wednesday/PM")
+thursday_location = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/ThursdayMargins/Thursday/Site")
+thursday_am_checkbox = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/ThursdayMargins/Thursday/AM")
+thursday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/ThursdayMargins/Thursday/PM")
+friday_location = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/FridayMargins/Friday/Site")
+friday_am_checkbox = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/FridayMargins/Friday/AM")
+friday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/FridayMargins/Friday/PM")
 confirm = NodePath("CenterContainer/VBoxContainer/Confirm")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -76,20 +76,24 @@ popup/item_2/id = 2
 popup/item_3/text = "RBA"
 popup/item_3/id = 3
 
-[node name="WorkDays" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="WorkDays" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="MondayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/WorkDays"]
+[node name="MondayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays"]
 layout_mode = 2
 
-[node name="Monday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/WorkDays/MondayMargins"]
+[node name="Monday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/MondayMargins"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday"]
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/MondayMargins/Monday"]
 layout_mode = 2
 text = "Monday"
 
-[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday"]
+[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/MondayMargins/Monday"]
 layout_mode = 2
 selected = 0
 item_count = 5
@@ -106,26 +110,26 @@ popup/item_3/id = 2
 popup/item_4/text = "Pembroke"
 popup/item_4/id = 4
 
-[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday"]
+[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/MondayMargins/Monday"]
 layout_mode = 2
 text = "AM"
 
-[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday"]
+[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/MondayMargins/Monday"]
 layout_mode = 2
 text = "PM
 "
 
-[node name="TuesdayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/WorkDays"]
+[node name="TuesdayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays"]
 layout_mode = 2
 
-[node name="Tuesday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/WorkDays/TuesdayMargins"]
+[node name="Tuesday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/TuesdayMargins"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday"]
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/TuesdayMargins/Tuesday"]
 layout_mode = 2
 text = "Tuesday"
 
-[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday"]
+[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/TuesdayMargins/Tuesday"]
 layout_mode = 2
 selected = 0
 item_count = 5
@@ -142,27 +146,27 @@ popup/item_3/id = 2
 popup/item_4/text = "Pembroke"
 popup/item_4/id = 4
 
-[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday"]
+[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/TuesdayMargins/Tuesday"]
 layout_mode = 2
 text = "AM"
 
-[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday"]
+[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/TuesdayMargins/Tuesday"]
 layout_mode = 2
 text = "PM
 "
 
-[node name="WednesdayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/WorkDays"]
+[node name="WednesdayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays"]
 layout_mode = 2
 
-[node name="Wednesday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/WorkDays/WednesdayMargins"]
+[node name="Wednesday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/WednesdayMargins"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday"]
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/WednesdayMargins/Wednesday"]
 layout_mode = 2
 text = "Wednesday
 "
 
-[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday"]
+[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/WednesdayMargins/Wednesday"]
 layout_mode = 2
 selected = 0
 item_count = 5
@@ -179,27 +183,27 @@ popup/item_3/id = 2
 popup/item_4/text = "Pembroke"
 popup/item_4/id = 4
 
-[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday"]
+[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/WednesdayMargins/Wednesday"]
 layout_mode = 2
 text = "AM"
 
-[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday"]
+[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/WednesdayMargins/Wednesday"]
 layout_mode = 2
 text = "PM
 "
 
-[node name="ThursdayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/WorkDays"]
+[node name="ThursdayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays"]
 layout_mode = 2
 
-[node name="Thursday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/WorkDays/ThursdayMargins"]
+[node name="Thursday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/ThursdayMargins"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday"]
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/ThursdayMargins/Thursday"]
 layout_mode = 2
 text = "Thursday
 "
 
-[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday"]
+[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/ThursdayMargins/Thursday"]
 layout_mode = 2
 selected = 0
 item_count = 5
@@ -216,26 +220,26 @@ popup/item_3/id = 2
 popup/item_4/text = "Pembroke"
 popup/item_4/id = 4
 
-[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday"]
+[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/ThursdayMargins/Thursday"]
 layout_mode = 2
 text = "AM"
 
-[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday"]
+[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/ThursdayMargins/Thursday"]
 layout_mode = 2
 text = "PM
 "
 
-[node name="FridayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/WorkDays"]
+[node name="FridayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays"]
 layout_mode = 2
 
-[node name="Friday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/WorkDays/FridayMargins"]
+[node name="Friday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/FridayMargins"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday"]
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/FridayMargins/Friday"]
 layout_mode = 2
 text = "Friday"
 
-[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday"]
+[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/FridayMargins/Friday"]
 layout_mode = 2
 selected = 0
 item_count = 5
@@ -252,11 +256,11 @@ popup/item_3/id = 2
 popup/item_4/text = "Pembroke"
 popup/item_4/id = 4
 
-[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday"]
+[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/FridayMargins/Friday"]
 layout_mode = 2
 text = "AM"
 
-[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday"]
+[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/PanelContainer/WorkDays/FridayMargins/Friday"]
 layout_mode = 2
 text = "PM
 "

@@ -81,11 +81,13 @@ func _ready() -> void:
 	fri_pm_current.set_meta(block_name, Schedule.Block.FRIDAY_PM)
 	fri_pm_requested.set_meta(block_name, Schedule.Block.FRIDAY_PM)
 
+	current_site_selector.set_item_metadata(0, 999)
 	current_site_selector.set_item_metadata(1, Schedule.Site.COLONNADE)
 	current_site_selector.set_item_metadata(2, Schedule.Site.LANCASTER)
 	current_site_selector.set_item_metadata(3, Schedule.Site.KANATA)
 	current_site_selector.set_item_metadata(4, Schedule.Site.PEMBROKE)
 
+	requested_site_selector.set_item_metadata(0, 999)
 	requested_site_selector.set_item_metadata(1, Schedule.Site.COLONNADE)
 	requested_site_selector.set_item_metadata(2, Schedule.Site.LANCASTER)
 	requested_site_selector.set_item_metadata(3, Schedule.Site.KANATA)
@@ -138,7 +140,9 @@ func confirm_edits() -> void:
 				client.add_requested_block(box.get_meta(block_name))
 
 		client.scheduled_site = current_site_selector.get_item_metadata(current_site_selector.selected)
-		client.requested_site = requested_site_selector.get_item_metadata(requested_site_selector.selected)
+		var requested_site = requested_site_selector.get_item_metadata(requested_site_selector.selected)
+		if requested_site != 999:
+			client.requested_site = requested_site
 		client.assigned_RBA = rba_selector.get_item_metadata(rba_selector.selected)
 		if client.assigned_RBA:
 			client.rba_name = client.assigned_RBA.therapist_name
