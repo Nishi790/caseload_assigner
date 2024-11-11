@@ -1,0 +1,190 @@
+[gd_scene load_steps=4 format=3 uid="uid://baxug0xoujm4f"]
+
+[ext_resource type="Script" path="res://UI/summary_section.gd" id="1_cjpm1"]
+[ext_resource type="PackedScene" uid="uid://c4tnpy52oc6kv" path="res://UI/unfilled_slot_display.tscn" id="2_lo4sq"]
+[ext_resource type="PackedScene" uid="uid://cx617nwjsll7h" path="res://UI/requested_slot_display.tscn" id="3_vurpw"]
+
+[node name="PanelContainer" type="PanelContainer" node_paths=PackedStringArray("site_label", "avail_mon_am_label", "avail_tues_am_label", "avail_wed_am_label", "avail_thurs_am_label", "avail_fri_am_label", "avail_mon_pm_label", "avail_tues_pm_label", "avail_wed_pm_label", "avail_thurs_pm_label", "avail_fri_pm_label", "unfilled_container", "requests_container")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_cjpm1")
+site_label = NodePath("Flags/SiteName")
+avail_mon_am_label = NodePath("Flags/OpenTherapistCounts/MondayAMPanel/MondayAM")
+avail_tues_am_label = NodePath("Flags/OpenTherapistCounts/TuesdayAMPanel/TuesdayAM")
+avail_wed_am_label = NodePath("Flags/OpenTherapistCounts/WednesdayAMPanel/WednesdayAM")
+avail_thurs_am_label = NodePath("Flags/OpenTherapistCounts/ThursdayAMPanel/ThursdayAM")
+avail_fri_am_label = NodePath("Flags/OpenTherapistCounts/FridayAMPanel/FridayAM")
+avail_mon_pm_label = NodePath("Flags/OpenTherapistCounts/MondayPMPanel/MondayPM")
+avail_tues_pm_label = NodePath("Flags/OpenTherapistCounts/TuesdayPMPanel/TuesdayPM")
+avail_wed_pm_label = NodePath("Flags/OpenTherapistCounts/WednesdayPMPanel/WednesdayPM")
+avail_thurs_pm_label = NodePath("Flags/OpenTherapistCounts/ThursdayPMPanel/ThursdayPM")
+avail_fri_pm_label = NodePath("Flags/OpenTherapistCounts/FridayPMPanel/FridayPM")
+unfilled_container = NodePath("Flags/UnfilledClientSlots")
+requests_container = NodePath("Flags/OpenClientRequests")
+unfilled_list_scene = ExtResource("2_lo4sq")
+request_scene = ExtResource("3_vurpw")
+
+[node name="Flags" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SiteName" type="Label" parent="Flags"]
+layout_mode = 2
+text = "Colonnade"
+horizontal_alignment = 1
+
+[node name="OpenTherapistCounts" type="GridContainer" parent="Flags"]
+layout_mode = 2
+columns = 6
+
+[node name="Times" type="Label" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Monday" type="Label" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Monday
+"
+horizontal_alignment = 1
+
+[node name="Tuesday" type="Label" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tuesday"
+horizontal_alignment = 1
+
+[node name="Wednesday" type="Label" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wednesday"
+horizontal_alignment = 1
+
+[node name="Thursday" type="Label" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Thursday"
+horizontal_alignment = 1
+
+[node name="Friday" type="Label" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Friday"
+horizontal_alignment = 1
+
+[node name="MorningLabel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+
+[node name="AM" type="Label" parent="Flags/OpenTherapistCounts/MorningLabel"]
+layout_mode = 2
+text = "  Morning"
+
+[node name="MondayAMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+
+[node name="MondayAM" type="Label" parent="Flags/OpenTherapistCounts/MondayAMPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="TuesdayAMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+
+[node name="TuesdayAM" type="Label" parent="Flags/OpenTherapistCounts/TuesdayAMPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="WednesdayAMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+
+[node name="WednesdayAM" type="Label" parent="Flags/OpenTherapistCounts/WednesdayAMPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="ThursdayAMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+
+[node name="ThursdayAM" type="Label" parent="Flags/OpenTherapistCounts/ThursdayAMPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="FridayAMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+
+[node name="FridayAM" type="Label" parent="Flags/OpenTherapistCounts/FridayAMPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="AfternoonLabel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="PM" type="Label" parent="Flags/OpenTherapistCounts/AfternoonLabel"]
+layout_mode = 2
+text = "  Afternoon"
+
+[node name="MondayPMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="MondayPM" type="Label" parent="Flags/OpenTherapistCounts/MondayPMPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="TuesdayPMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="TuesdayPM" type="Label" parent="Flags/OpenTherapistCounts/TuesdayPMPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="WednesdayPMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="WednesdayPM" type="Label" parent="Flags/OpenTherapistCounts/WednesdayPMPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="ThursdayPMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="ThursdayPM" type="Label" parent="Flags/OpenTherapistCounts/ThursdayPMPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="FridayPMPanel" type="PanelContainer" parent="Flags/OpenTherapistCounts"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="FridayPM" type="Label" parent="Flags/OpenTherapistCounts/FridayPMPanel"]
+layout_mode = 2
+text = "1"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Flags"]
+layout_mode = 2
+
+[node name="UnfilledClientSlots" type="VBoxContainer" parent="Flags"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Flags/UnfilledClientSlots"]
+layout_mode = 2
+text = "Unfilled Client Slots"
+horizontal_alignment = 1
+
+[node name="Separator" type="HSeparator" parent="Flags"]
+layout_mode = 2
+
+[node name="OpenClientRequests" type="VBoxContainer" parent="Flags"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Flags/OpenClientRequests"]
+layout_mode = 2
+text = "Open Client Requests"
+horizontal_alignment = 1

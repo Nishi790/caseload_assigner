@@ -1,0 +1,45 @@
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://jnh3acetihx"]
+
+[ext_resource type="StyleBox" uid="uid://b2jcsekcsbcjb" path="res://UI/vseparator_style_box.tres" id="1_4oo4g"]
+[ext_resource type="StyleBox" uid="uid://16muv1ca1dwd" path="res://UI/green_stylebox_basic.tres" id="2_ts1fj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hbp0"]
+bg_color = Color(0.415192, 0.548414, 0.327582, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qp4ec"]
+bg_color = Color(0.182845, 0.342093, 0.140874, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7nuun"]
+bg_color = Color(0.272176, 0.414258, 0.159582, 1)
+border_color = Color(0.597176, 0.597176, 0.597176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxeh3"]
+bg_color = Color(0.293733, 0.20506, 0.301993, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4t6c"]
+bg_color = Color(0.774361, 0.315648, 0.311192, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s0env"]
+bg_color = Color(0.639715, 0.186799, 0.177864, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8kux"]
+bg_color = Color(0.434253, 0, 0.04737, 1)
+
+[resource]
+MarginContainer/constants/margin_bottom = 4
+MarginContainer/constants/margin_left = 4
+MarginContainer/constants/margin_right = 4
+MarginContainer/constants/margin_top = 4
+VSeparator/styles/separator = ExtResource("1_4oo4g")
+filled/base_type = &"OptionButton"
+filled/styles/hover = SubResource("StyleBoxFlat_4hbp0")
+filled/styles/normal = ExtResource("2_ts1fj")
+filled/styles/pressed = SubResource("StyleBoxFlat_qp4ec")
+free/base_type = &"PanelContainer"
+free/styles/panel = SubResource("StyleBoxFlat_7nuun")
+lighter_panel/base_type = &"PanelContainer"
+lighter_panel/styles/panel = SubResource("StyleBoxFlat_oxeh3")
+unfilled/base_type = &"OptionButton"
+unfilled/styles/hover = SubResource("StyleBoxFlat_u4t6c")
+unfilled/styles/normal = SubResource("StyleBoxFlat_s0env")
+unfilled/styles/pressed = SubResource("StyleBoxFlat_c8kux")

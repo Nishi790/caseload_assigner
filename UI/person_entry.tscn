@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=3 uid="uid://ulss7unlmaei"]
+
+[ext_resource type="Script" path="res://UI/person_entry.gd" id="1_uiest"]
+
+[node name="PersonEntry" type="HBoxContainer" node_paths=PackedStringArray("name_label", "mon_am_selector", "tues_am_selector", "wed_am_selector", "thurs_am_selector", "fri_am_selector", "mon_pm_selector", "tues_pm_selector", "wed_pm_selector", "thurs_pm_selector", "fri_pm_selector")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uiest")
+name_label = NodePath("Name")
+mon_am_selector = NodePath("MonAM")
+tues_am_selector = NodePath("TuesAM")
+wed_am_selector = NodePath("WedAM")
+thurs_am_selector = NodePath("ThursAM")
+fri_am_selector = NodePath("FriAM")
+mon_pm_selector = NodePath("MonPM")
+tues_pm_selector = NodePath("TuesPM")
+wed_pm_selector = NodePath("WedPM")
+thurs_pm_selector = NodePath("ThursPM")
+fri_pm_selector = NodePath("FriPM")
+
+[node name="Name" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Name"
+autowrap_mode = 2
+
+[node name="MonAM" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TuesAM" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WedAM" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ThursAM" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FriAM" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="MonPM" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TuesPM" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WedPM" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ThursPM" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FriPM" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3

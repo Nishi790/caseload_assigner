@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://brmkcjtnru4w6"]
+
+[ext_resource type="Script" path="res://UI/therapist_selector.gd" id="1_2qlat"]
+
+[node name="TherapistSelector" type="PopupPanel" node_paths=PackedStringArray("therapist_list", "confirm_button", "delete_button", "cancel_button")]
+size = Vector2i(355, 500)
+visible = true
+script = ExtResource("1_2qlat")
+therapist_list = NodePath("VBoxContainer/TherapistList")
+confirm_button = NodePath("VBoxContainer/Confirm/Confirm")
+delete_button = NodePath("VBoxContainer/Confirm/Button")
+cancel_button = NodePath("VBoxContainer/Confirm/Cancel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 351.0
+offset_bottom = 496.0
+
+[node name="SelectTitle" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select Entry to Edit:"
+
+[node name="TherapistList" type="ItemList" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Confirm" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Confirm" type="Button" parent="VBoxContainer/Confirm"]
+layout_mode = 2
+text = "Confirm Selection"
+
+[node name="Button" type="Button" parent="VBoxContainer/Confirm"]
+layout_mode = 2
+text = "Delete Selection"
+
+[node name="Cancel" type="Button" parent="VBoxContainer/Confirm"]
+layout_mode = 2
+text = "Cancel"

@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx617nwjsll7h"]
+
+[ext_resource type="Script" path="res://UI/requested_slot_display.gd" id="1_iqehc"]
+
+[node name="RequestedSlotDisplay" type="PanelContainer" node_paths=PackedStringArray("client_label", "site_label", "slots_label", "accept_button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"lighter_panel"
+script = ExtResource("1_iqehc")
+client_label = NodePath("RequestContainer/Name")
+site_label = NodePath("RequestContainer/Site")
+slots_label = NodePath("RequestContainer/Slots")
+accept_button = NodePath("RequestContainer/Accept")
+
+[node name="RequestContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="RequestContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Name"
+horizontal_alignment = 1
+
+[node name="Site" type="Label" parent="RequestContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Colonnade"
+horizontal_alignment = 1
+
+[node name="Slots" type="Label" parent="RequestContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Thursday am"
+autowrap_mode = 2
+
+[node name="Accept" type="Button" parent="RequestContainer"]
+layout_mode = 2
+text = "Accept Request"

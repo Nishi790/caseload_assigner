@@ -1,0 +1,378 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0mqoud5k6g32"]
+
+[ext_resource type="Script" path="res://UI/client_editor.gd" id="1_f1dah"]
+[ext_resource type="PackedScene" uid="uid://dcnqyhmr3k8p8" path="res://UI/client_selector.tscn" id="2_fwvyf"]
+
+[node name="ClientEditor" type="PanelContainer" node_paths=PackedStringArray("confirm_button", "client_name_line", "client_id_setter", "rba_selector", "edit_button", "mon_am_current", "tues_am_current", "wed_am_current", "thurs_am_current", "fri_am_current", "mon_pm_current", "tues_pm_current", "wed_pm_current", "thurs_pm_current", "fri_pm_current", "current_site_selector", "mon_am_requested", "tues_am_requested", "wed_am_requested", "thurs_am_requested", "fri_am_requested", "mon_pm_requested", "tues_pm_requested", "wed_pm_requested", "thurs_pm_requested", "fri_pm_requested", "requested_site_selector", "client_selector")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f1dah")
+confirm_button = NodePath("MarginContainer/CenterContainer/VBox/ConfirmClientChanges")
+client_name_line = NodePath("MarginContainer/CenterContainer/VBox/Name/NameEntry")
+client_id_setter = NodePath("MarginContainer/CenterContainer/VBox/ID/SpinBox")
+rba_selector = NodePath("MarginContainer/CenterContainer/VBox/RBA/RBASelector")
+edit_button = NodePath("MarginContainer/CenterContainer/VBox/EditClient")
+mon_am_current = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer/MondayAM")
+tues_am_current = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer/TuesdayAM")
+wed_am_current = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer/WednesdayAM")
+thurs_am_current = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer/ThursdayAM")
+fri_am_current = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer/FridayAM")
+mon_pm_current = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer/MondayPM")
+tues_pm_current = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer/TuesdayPM")
+wed_pm_current = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer/WednesdayPM")
+thurs_pm_current = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer/ThursdayPM")
+fri_pm_current = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer/FridayPM")
+current_site_selector = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/SiteData/CurrentSite")
+mon_am_requested = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer/MondayAM")
+tues_am_requested = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer/TuesdayAM")
+wed_am_requested = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer/WednesdayAM")
+thurs_am_requested = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer/ThursdayAM")
+fri_am_requested = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer/FridayAM")
+mon_pm_requested = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer/MondayPM")
+tues_pm_requested = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer/TuesdayPM")
+wed_pm_requested = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer/WednesdayPM")
+thurs_pm_requested = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer/ThursdayPM")
+fri_pm_requested = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer/FridayPM")
+requested_site_selector = NodePath("MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/SiteData/RequestedSite")
+client_selector = NodePath("ClientSelector")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+
+[node name="EditClient" type="Button" parent="MarginContainer/CenterContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Edit Existing Client"
+
+[node name="Name" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBox/Name"]
+layout_mode = 2
+text = "Client Name"
+
+[node name="NameEntry" type="LineEdit" parent="MarginContainer/CenterContainer/VBox/Name"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="ID" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="AlayacareID" type="Label" parent="MarginContainer/CenterContainer/VBox/ID"]
+layout_mode = 2
+text = "Alayacare ID: "
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/CenterContainer/VBox/ID"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 10000.0
+allow_greater = true
+select_all_on_focus = true
+
+[node name="RBA" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="RBALabel" type="Label" parent="MarginContainer/CenterContainer/VBox/RBA"]
+layout_mode = 2
+text = "Assigned RBA"
+
+[node name="RBASelector" type="OptionButton" parent="MarginContainer/CenterContainer/VBox/RBA"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+item_count = 1
+popup/item_0/text = "Select RBA"
+popup/item_0/disabled = true
+popup/item_0/separator = true
+
+[node name="CurrentSchedule" type="RichTextLabel" parent="MarginContainer/CenterContainer/VBox"]
+layout_mode = 2
+bbcode_enabled = true
+text = "
+[center][font size=24]Current Schedule[/font][/center]"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/VBox"]
+layout_mode = 2
+
+[node name="CurrentSchedulePanel" type="PanelContainer" parent="MarginContainer/CenterContainer/VBox/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer"]
+layout_mode = 2
+columns = 6
+
+[node name="Spacer" type="Control" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.5
+
+[node name="Monday" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Monday
+"
+horizontal_alignment = 1
+
+[node name="Tuesday" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tuesday"
+horizontal_alignment = 1
+
+[node name="Wednesday" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wednesday
+"
+horizontal_alignment = 1
+
+[node name="Thursday" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Thursday
+"
+horizontal_alignment = 1
+
+[node name="Friday" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Friday
+"
+horizontal_alignment = 1
+
+[node name="Morning" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "AM
+"
+horizontal_alignment = 2
+
+[node name="MondayAM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TuesdayAM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="WednesdayAM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ThursdayAM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FridayAM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Afternoon" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "PM
+"
+horizontal_alignment = 2
+
+[node name="MondayPM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TuesdayPM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="WednesdayPM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ThursdayPM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FridayPM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SiteData" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/SiteData"]
+layout_mode = 2
+text = "Current Site"
+
+[node name="CurrentSite" type="OptionButton" parent="MarginContainer/CenterContainer/VBox/MarginContainer/CurrentSchedulePanel/VBoxContainer/SiteData"]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Select Site"
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Colonnade"
+popup/item_1/id = 1
+popup/item_2/text = "Lancaster"
+popup/item_2/id = 2
+popup/item_3/text = "Kanata"
+popup/item_3/id = 3
+popup/item_4/text = "Pembroke"
+popup/item_4/id = 4
+
+[node name="RequestedSchedule" type="RichTextLabel" parent="MarginContainer/CenterContainer/VBox"]
+layout_mode = 2
+bbcode_enabled = true
+text = "
+[center][font size=24]Requested Schedule[/font][/center]"
+fit_content = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/CenterContainer/VBox"]
+layout_mode = 2
+
+[node name="RequestedSchedulePanel" type="PanelContainer" parent="MarginContainer/CenterContainer/VBox/MarginContainer2"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer"]
+layout_mode = 2
+columns = 6
+
+[node name="Spacer" type="Control" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.5
+
+[node name="Monday" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Monday
+"
+horizontal_alignment = 1
+
+[node name="Tuesday" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tuesday"
+horizontal_alignment = 1
+
+[node name="Wednesday" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wednesday
+"
+horizontal_alignment = 1
+
+[node name="Thursday" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Thursday
+"
+horizontal_alignment = 1
+
+[node name="Friday" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Friday
+"
+horizontal_alignment = 1
+
+[node name="Morning" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "AM
+"
+horizontal_alignment = 2
+
+[node name="MondayAM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TuesdayAM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="WednesdayAM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ThursdayAM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FridayAM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Afternoon" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "PM
+"
+horizontal_alignment = 2
+
+[node name="MondayPM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TuesdayPM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="WednesdayPM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ThursdayPM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FridayPM" type="CheckBox" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SiteData" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/SiteData"]
+layout_mode = 2
+text = "Requested Site"
+
+[node name="RequestedSite" type="OptionButton" parent="MarginContainer/CenterContainer/VBox/MarginContainer2/RequestedSchedulePanel/VBoxContainer/SiteData"]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Select Site"
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Colonnade"
+popup/item_1/id = 1
+popup/item_2/text = "Lancaster"
+popup/item_2/id = 2
+popup/item_3/text = "Kanata"
+popup/item_3/id = 3
+popup/item_4/text = "Pembroke"
+popup/item_4/id = 4
+
+[node name="ConfirmClientChanges" type="Button" parent="MarginContainer/CenterContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Confirm Changes"
+
+[node name="ClientSelector" parent="." instance=ExtResource("2_fwvyf")]
+size = Vector2i(363, 500)

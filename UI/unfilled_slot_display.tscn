@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4tnpy52oc6kv"]
+
+[ext_resource type="Script" path="res://UI/unfilled_slot_display.gd" id="1_aj75y"]
+
+[node name="UnfilledSlotDisplay" type="HBoxContainer" node_paths=PackedStringArray("client_label", "site_label", "slots_label")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aj75y")
+client_label = NodePath("ClientName")
+site_label = NodePath("Site")
+slots_label = NodePath("SlotList")
+
+[node name="ClientName" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Client"
+horizontal_alignment = 1
+
+[node name="Site" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Lancaster"
+
+[node name="SlotList" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Monday am, Tuesday pm"
+autowrap_mode = 2

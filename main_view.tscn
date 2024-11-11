@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://b2335b1amv3tf"]
+
+[ext_resource type="Script" path="res://UI/main_view.gd" id="1_63lpq"]
+[ext_resource type="PackedScene" uid="uid://306agrwgt51h" path="res://UI/schedule_view.tscn" id="1_qgbmp"]
+[ext_resource type="PackedScene" uid="uid://baxug0xoujm4f" path="res://UI/summary_page.tscn" id="2_f0ku4"]
+[ext_resource type="Script" path="res://UI/summary_view.gd" id="2_wse6r"]
+[ext_resource type="PackedScene" uid="uid://bahd2mied2bol" path="res://UI/add_therapist_page.tscn" id="4_j6g2b"]
+[ext_resource type="PackedScene" uid="uid://c0mqoud5k6g32" path="res://UI/client_editor.tscn" id="5_kqe7w"]
+
+[node name="MainView" type="TabContainer" node_paths=PackedStringArray("schedule_view", "summary_view", "therapist_adder", "client_adder")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 1
+script = ExtResource("1_63lpq")
+schedule_view = NodePath("Schedule")
+summary_view = NodePath("Summary")
+therapist_adder = NodePath("Add Therapist")
+client_adder = NodePath("Add Client")
+
+[node name="Schedule" parent="." instance=ExtResource("1_qgbmp")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Summary" type="PanelContainer" parent="." node_paths=PackedStringArray("summary_organizer")]
+layout_mode = 2
+script = ExtResource("2_wse6r")
+summary_organizer = NodePath("ScrollContainer/MarginContainer/GridContainer")
+summary_block = ExtResource("2_f0ku4")
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Summary"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Summary/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="Summary/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="Spacer" type="Control" parent="Summary/ScrollContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Add Therapist" parent="." instance=ExtResource("4_j6g2b")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Add Client" parent="." instance=ExtResource("5_kqe7w")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3

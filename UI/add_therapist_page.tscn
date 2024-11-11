@@ -1,0 +1,269 @@
+[gd_scene load_steps=3 format=3 uid="uid://bahd2mied2bol"]
+
+[ext_resource type="Script" path="res://UI/add_therapist_page.gd" id="1_wlec0"]
+[ext_resource type="PackedScene" uid="uid://brmkcjtnru4w6" path="res://UI/therapist_selector.tscn" id="2_xayqv"]
+
+[node name="AddTherapistPage" type="PanelContainer" node_paths=PackedStringArray("therapist_selector", "create_new_button", "edit_existing", "name_line", "role_selector", "monday_location", "monday_am_checkbox", "monday_pm_checkbox", "tuesday_location", "tuesday_am_checkbox", "tuesday_pm_checkbox", "wednesday_location", "wednesday_am_checkbox", "wednesday_pm_checkbox", "thursday_location", "thursday_am_checkbox", "thursday_pm_checkbox", "friday_location", "friday_am_checkbox", "friday_pm_checkbox", "confirm")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wlec0")
+therapist_selector = NodePath("TherapistSelector")
+create_new_button = NodePath("CenterContainer/VBoxContainer/Options/NewThx")
+edit_existing = NodePath("CenterContainer/VBoxContainer/Options/Edit")
+name_line = NodePath("CenterContainer/VBoxContainer/Name/LineEdit")
+role_selector = NodePath("CenterContainer/VBoxContainer/Role")
+monday_location = NodePath("CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday/Site")
+monday_am_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday/AM")
+monday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday/PM")
+tuesday_location = NodePath("CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday/Site")
+tuesday_am_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday/AM")
+tuesday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday/PM")
+wednesday_location = NodePath("CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday/Site")
+wednesday_am_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday/AM")
+wednesday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday/PM")
+thursday_location = NodePath("CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday/Site")
+thursday_am_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday/AM")
+thursday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday/PM")
+friday_location = NodePath("CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday/Site")
+friday_am_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday/AM")
+friday_pm_checkbox = NodePath("CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday/PM")
+confirm = NodePath("CenterContainer/VBoxContainer/Confirm")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Options" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="NewThx" type="Button" parent="CenterContainer/VBoxContainer/Options"]
+layout_mode = 2
+text = "New Therapist"
+
+[node name="Edit" type="Button" parent="CenterContainer/VBoxContainer/Options"]
+layout_mode = 2
+text = "Edit Existing Therapist"
+
+[node name="Name" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Name"]
+layout_mode = 2
+text = "Therapist Name:"
+
+[node name="LineEdit" type="LineEdit" parent="CenterContainer/VBoxContainer/Name"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+placeholder_text = "Insert Name"
+
+[node name="Role" type="OptionButton" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+selected = 0
+item_count = 4
+popup/item_0/text = "Instructor Therapist"
+popup/item_1/text = "Lead"
+popup/item_1/id = 1
+popup/item_2/text = "Supervised Behavioral Clinician"
+popup/item_2/id = 2
+popup/item_3/text = "RBA"
+popup/item_3/id = 3
+
+[node name="WorkDays" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MondayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/WorkDays"]
+layout_mode = 2
+
+[node name="Monday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/WorkDays/MondayMargins"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday"]
+layout_mode = 2
+text = "Monday"
+
+[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday"]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Select Site"
+popup/item_0/id = 3
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Colonnade"
+popup/item_1/id = 1
+popup/item_2/text = "Lancaster"
+popup/item_2/id = 1
+popup/item_3/text = "Kanata"
+popup/item_3/id = 2
+popup/item_4/text = "Pembroke"
+popup/item_4/id = 4
+
+[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday"]
+layout_mode = 2
+text = "AM"
+
+[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/MondayMargins/Monday"]
+layout_mode = 2
+text = "PM
+"
+
+[node name="TuesdayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/WorkDays"]
+layout_mode = 2
+
+[node name="Tuesday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/WorkDays/TuesdayMargins"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday"]
+layout_mode = 2
+text = "Tuesday"
+
+[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday"]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Select Site"
+popup/item_0/id = 3
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Colonnade"
+popup/item_1/id = 1
+popup/item_2/text = "Lancaster"
+popup/item_2/id = 1
+popup/item_3/text = "Kanata"
+popup/item_3/id = 2
+popup/item_4/text = "Pembroke"
+popup/item_4/id = 4
+
+[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday"]
+layout_mode = 2
+text = "AM"
+
+[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/TuesdayMargins/Tuesday"]
+layout_mode = 2
+text = "PM
+"
+
+[node name="WednesdayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/WorkDays"]
+layout_mode = 2
+
+[node name="Wednesday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/WorkDays/WednesdayMargins"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday"]
+layout_mode = 2
+text = "Wednesday
+"
+
+[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday"]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Select Site"
+popup/item_0/id = 3
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Colonnade"
+popup/item_1/id = 1
+popup/item_2/text = "Lancaster"
+popup/item_2/id = 1
+popup/item_3/text = "Kanata"
+popup/item_3/id = 2
+popup/item_4/text = "Pembroke"
+popup/item_4/id = 4
+
+[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday"]
+layout_mode = 2
+text = "AM"
+
+[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/WednesdayMargins/Wednesday"]
+layout_mode = 2
+text = "PM
+"
+
+[node name="ThursdayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/WorkDays"]
+layout_mode = 2
+
+[node name="Thursday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/WorkDays/ThursdayMargins"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday"]
+layout_mode = 2
+text = "Thursday
+"
+
+[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday"]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Select Site"
+popup/item_0/id = 3
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Colonnade"
+popup/item_1/id = 1
+popup/item_2/text = "Lancaster"
+popup/item_2/id = 1
+popup/item_3/text = "Kanata"
+popup/item_3/id = 2
+popup/item_4/text = "Pembroke"
+popup/item_4/id = 4
+
+[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday"]
+layout_mode = 2
+text = "AM"
+
+[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/ThursdayMargins/Thursday"]
+layout_mode = 2
+text = "PM
+"
+
+[node name="FridayMargins" type="MarginContainer" parent="CenterContainer/VBoxContainer/WorkDays"]
+layout_mode = 2
+
+[node name="Friday" type="VBoxContainer" parent="CenterContainer/VBoxContainer/WorkDays/FridayMargins"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday"]
+layout_mode = 2
+text = "Friday"
+
+[node name="Site" type="OptionButton" parent="CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday"]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Select Site"
+popup/item_0/id = 3
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Colonnade"
+popup/item_1/id = 1
+popup/item_2/text = "Lancaster"
+popup/item_2/id = 1
+popup/item_3/text = "Kanata"
+popup/item_3/id = 2
+popup/item_4/text = "Pembroke"
+popup/item_4/id = 4
+
+[node name="AM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday"]
+layout_mode = 2
+text = "AM"
+
+[node name="PM" type="CheckBox" parent="CenterContainer/VBoxContainer/WorkDays/FridayMargins/Friday"]
+layout_mode = 2
+text = "PM
+"
+
+[node name="Confirm" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Confirm"
+
+[node name="TherapistSelector" parent="." instance=ExtResource("2_xayqv")]
