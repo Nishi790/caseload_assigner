@@ -47,9 +47,10 @@ func show_confirm_delete(_index: int) -> void:
 
 
 func _update_item_list() -> void:
+	CaseloadData.alphabetize_lists()
 	therapist_list.clear()
 	var index: int = 0
-	for thx: Therapist in CaseloadData.active_staff:
+	for thx: Therapist in CaseloadData.alphabetical_staff:
 		therapist_list.add_item(thx.therapist_name)
 		therapist_list.set_item_metadata(index, thx)
 		index += 1

@@ -40,20 +40,20 @@ func display_clients(selected_site: Schedule.Site) -> void:
 	displayed_clients.clear()
 
 	if selected_site == -1:
-		for client: Client in CaseloadData.active_clients:
+		for client: Client in CaseloadData.active_clients.values():
 			var new_entry: PersonScheduleEntry = client_entry_scene.instantiate()
 			client_schedule_container.add_child(new_entry)
-			new_entry.set_up_for_client(client, CaseloadData.active_staff)
+			new_entry.set_up_for_client(client)
 			new_entry.assignment_changed.connect(_update_therapist_display)
 			displayed_clients.append(new_entry)
 	else:
-		for client: Client in CaseloadData.active_clients:
+		for client: Client in CaseloadData.active_clients.values():
 			if client.scheduled_site != selected_site:
 				continue
 			else:
 				var new_entry: PersonScheduleEntry = client_entry_scene.instantiate()
 				client_schedule_container.add_child(new_entry)
-				new_entry.set_up_for_client(client, CaseloadData.active_staff)
+				new_entry.set_up_for_client(client)
 				new_entry.assignment_changed.connect(_update_affected_displays)
 				displayed_clients.append(new_entry)
 
@@ -64,7 +64,7 @@ func display_staff() -> void:
 
 	displayed_therapists.clear()
 
-	for thx: Therapist in CaseloadData.active_staff:
+	for thx: Therapist in CaseloadData.alphabetical_staff:
 		if displayed_site != Schedule.Site.ALL_SITES:
 			if not thx.work_schedule.values().has(displayed_site):
 				continue

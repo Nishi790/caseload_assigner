@@ -37,6 +37,14 @@ layout_mode = 2
 text = "Colonnade"
 horizontal_alignment = 1
 
+[node name="HSeparator2" type="HSeparator" parent="Flags"]
+layout_mode = 2
+
+[node name="AvailableTherapists" type="Label" parent="Flags"]
+layout_mode = 2
+text = "Available Therapy Slots"
+horizontal_alignment = 1
+
 [node name="OpenTherapistCounts" type="GridContainer" parent="Flags"]
 layout_mode = 2
 columns = 6

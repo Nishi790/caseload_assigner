@@ -55,12 +55,12 @@ func _process(_delta: float) -> void:
 		update_assigned_therapists()
 
 
-func set_up_for_client(new_client: Client, therapist_list: Array[Therapist]) -> void:
+func set_up_for_client(new_client: Client) -> void:
 	client = new_client
 	client.data_changed.connect(set_data_change_flag)
 	name_label.set_text(client.client_name)
 
-	for thx: Therapist in therapist_list:
+	for thx: Therapist in CaseloadData.active_staff.values():
 		for selector: OptionButton in all_selectors:
 			var block: Schedule.Block = selector.get_meta(block_name)
 			if thx.work_schedule.has(block) and thx.work_schedule[block] == client.scheduled_site:

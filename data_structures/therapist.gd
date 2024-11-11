@@ -6,6 +6,7 @@ signal therapist_already_scheduled
 enum Type {IT, LEAD, SBC, RBA}
 
 @export var therapist_name: String
+@export var AC_id: int
 @export var work_schedule: Dictionary #Block: Site
 
 @export var scheduled_blocks: Dictionary #Block: Client
@@ -21,12 +22,15 @@ static func deserialize_thx(thx_data: Dictionary) -> Therapist:
 		new_thx.therapist_name = thx_data["name"]
 	if thx_data.has("type"):
 		new_thx.therapist_type = thx_data["type"]
+	if thx_data.has("id"):
+		new_thx.AC_id = int(thx_data["id"])
 	if thx_data.has("scheduled_days"):
 		var int_key_dict: Dictionary = Utilities.convert_string_to_int_keys(thx_data["scheduled_days"])
 		new_thx.work_schedule = Utilities.convert_float_values_to_ints(int_key_dict)
 	#new_thx.caseload = thx_data["caseload"]
 	if thx_data.has("scheduled_clients"):
-		new_thx.scheduled_blocks = Utilities.convert_string_to_int_keys(thx_data["scheduled_clients"])
+		var int_key_dict: Dictionary = Utilities.convert_string_to_int_keys(thx_data["scheduled_clients"])
+		new_thx.scheduled_blocks = Utilities.convert_float_values_to_ints(int_key_dict)
 
 	for block: Schedule.Block in new_thx.work_schedule:
 		if not new_thx.scheduled_blocks.has(block):
@@ -35,15 +39,22 @@ static func deserialize_thx(thx_data: Dictionary) -> Therapist:
 	return new_thx
 
 
-func connect_clients(client_list: Array[Client]) -> void:
+func connect_clients(client_dict: Dictionary) -> void:
 	var clients_on_caseload: Array = scheduled_blocks.values()
-	for client: Client in client_list:
-		if clients_on_caseload.has(client.client_name):
-			var client_key = scheduled_blocks.find_key(client.client_name)
-			while client_key != null:
-				scheduled_blocks[client_key] = client
-				client.update_assigned_therapist(client_key, self)
-				client_key = scheduled_blocks.find_key(client.client_name)
+	for block: Schedule.Block in scheduled_blocks:
+		var client_id: int = scheduled_blocks[block]
+		var client_object: Client = CaseloadData.active_clients[client_id]
+		scheduled_blocks[block] = client_object
+		client_object.update_assigned_therapist(block, self)
+
+	#DEPRECATED
+	#for client: Client in client_list:
+		#if clients_on_caseload.has(client.client_name):
+			#var client_key = scheduled_blocks.find_key(client.client_name)
+			#while client_key != null:
+				#scheduled_blocks[client_key] = client
+				#client.update_assigned_therapist(client_key, self)
+				#client_key = scheduled_blocks.find_key(client.client_name)
 
 
 func free_slot(block: Schedule.Block) -> void:
@@ -94,12 +105,13 @@ func serialize_data() -> Dictionary:
 
 	data["name"] = therapist_name
 	data["type"] = therapist_type
+	data["id"] = AC_id
 	data["scheduled_days"] = work_schedule
 
 	var clients_per_block: Dictionary = {}
 
 	for block: Schedule.Block in scheduled_blocks:
-		clients_per_block[block] = scheduled_blocks[block].client_name
+		clients_per_block[block] = scheduled_blocks[block].AC_id
 
 	data["scheduled_clients"] = clients_per_block
 	data["caseload"] = caseload

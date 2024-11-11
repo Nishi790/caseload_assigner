@@ -2,6 +2,7 @@ class_name Schedule
 extends Node
 
 const config_path: String = "user://config.cfg"
+const back_up_path: String = "user://back_ups"
 
 enum Block {MONDAY_AM, MONDAY_PM, TUESDAY_AM, TUESDAY_PM,
 WEDNESDAY_AM, WEDNESDAY_PM, THURSDAY_AM, THURSDAY_PM, FRIDAY_AM, FRIDAY_PM}
@@ -15,8 +16,10 @@ var LANCASTER_COLOUR: Color = Color.DARK_SALMON
 var PEMBROKE_COLOUR: Color = Color.FOREST_GREEN
 
 
-var active_clients: Array[Client]
-var active_staff: Array[Therapist]
+var active_clients: Dictionary #ID (int): Client
+var alphabetical_clients: Array[Client]
+var active_staff: Dictionary #ID (int): Therapist
+var alphabetical_staff: Array[Therapist]
 
 
 var load_failed: bool = false
@@ -69,7 +72,10 @@ static func get_block_string(block: Block) -> String:
 
 
 func _ready() -> void:
+	if not DirAccess.dir_exists_absolute(back_up_path):
+		DirAccess.make_dir_absolute(back_up_path)
 	load_config()
+
 
 	var err: Error = load_saved_data()
 	if not err == OK:
@@ -78,9 +84,12 @@ func _ready() -> void:
 
 
 func alphabetize_lists() -> void:
-	active_clients.sort_custom(func alphabetize(a: Client, b: Client) -> bool:
+	alphabetical_clients.assign(active_clients.values())
+	alphabetical_clients.sort_custom(func alphabetize(a: Client, b: Client) -> bool:
 		return b.client_name > a.client_name)
-	active_staff.sort_custom(func alphabetize(a: Therapist, b: Therapist) -> bool:
+
+	alphabetical_staff.assign(active_staff.values())
+	alphabetical_staff.sort_custom(func alphabetize(a: Therapist, b: Therapist) -> bool:
 		return b.therapist_name > a.therapist_name)
 
 
@@ -100,13 +109,13 @@ func save(path: String = "") -> void:
 	var save_dict: Dictionary = {}
 
 	var client_dict: Dictionary = {}
-	for client: Client in active_clients:
+	for client: Client in active_clients.values():
 		var serialized_client: Dictionary = client.serialize_data()
 		client_dict[client.AC_id] = serialized_client
 	save_dict["Clients"] = client_dict
 
 	var staff_dict: Dictionary = {}
-	for staff: Therapist in active_staff:
+	for staff: Therapist in active_staff.values():
 		var serialized_staff: Dictionary = staff.serialize_data()
 		staff_dict[staff.therapist_name] = serialized_staff
 	save_dict["Staff"] = staff_dict
@@ -123,8 +132,16 @@ func save_config() -> void:
 	config.save(config_path)
 
 
+func back_up() -> void:
+	var file_name: String = "back_up_" + Time.get_datetime_string_from_system() + ".schedule"
+	file_name = file_name.replace(":", "_")
+	file_name = file_name.replace("T", "_")
+	var path: String = back_up_path.path_join(file_name)
+	save(path)
+
+
 func release_therapist_references() -> void:
-	for client: Client in active_clients:
+	for client: Client in active_clients.values():
 		client.assigned_RBA = null
 		client.assigned_therapists.clear()
 
@@ -163,11 +180,12 @@ func load_saved_data(path: String = "") -> Error:
 			var client_dict: Dictionary = json_parser.data["Clients"]
 			var thx_dict: Dictionary = json_parser.data["Staff"]
 			for entry: String in client_dict:
-				active_clients.append(Client.deserialize_client(client_dict[entry]))
+				var new_client: Client = Client.deserialize_client(client_dict[entry])
+				active_clients[new_client.AC_id] = new_client
 			for entry: String in thx_dict:
 				var thx: Therapist = Therapist.deserialize_thx(thx_dict[entry])
 				thx.connect_clients(active_clients)
-				active_staff.append(thx)
+				active_staff[thx.AC_id] = thx
 		else:
 			return error
 		return OK
@@ -177,19 +195,21 @@ func load_saved_data(path: String = "") -> Error:
 func set_up_test_database() -> void:
 	var test_staff: Therapist = Therapist.new()
 	test_staff.therapist_name = "Test Rebecca"
+	test_staff.AC_id = 0
 	test_staff.add_work_block_to_schedule(Schedule.Block.MONDAY_AM, Schedule.Site.COLONNADE)
 	test_staff.add_work_block_to_schedule(Schedule.Block.MONDAY_PM, Schedule.Site.COLONNADE)
 	test_staff.add_work_block_to_schedule(Schedule.Block.TUESDAY_AM, Schedule.Site.KANATA)
 	test_staff.add_work_block_to_schedule(Schedule.Block.TUESDAY_PM, Schedule.Site.KANATA)
 
-	active_staff.append(test_staff)
+	active_staff[test_staff.AC_id] = test_staff
 
 	test_staff = Therapist.new()
 	test_staff.therapist_name = "Test Amanda"
+	test_staff.AC_id = 1
 	test_staff.add_work_block_to_schedule(Schedule.Block.TUESDAY_AM, Schedule.Site.COLONNADE)
 	test_staff.add_work_block_to_schedule(Schedule.Block.WEDNESDAY_AM, Schedule.Site.COLONNADE)
 	test_staff.add_work_block_to_schedule(Schedule.Block.WEDNESDAY_PM, Schedule.Site.COLONNADE)
-	active_staff.append(test_staff)
+	active_staff[test_staff.AC_id] = test_staff
 
 	var test_client: Client = Client.new()
 	test_client.client_name = "Client A"
@@ -199,7 +219,7 @@ func set_up_test_database() -> void:
 	test_client.unfilled_slots.append(Schedule.Block.FRIDAY_AM)
 	test_client.scheduled_site = Schedule.Site.COLONNADE
 
-	active_clients.append(test_client)
+	active_clients[test_client.AC_id] = test_client
 
 
 func get_site_colour(site: Site) -> Color:
@@ -217,33 +237,39 @@ func get_site_colour(site: Site) -> Color:
 
 
 func add_therapist(new_thx: Therapist) -> void:
-	if active_staff.has(new_thx):
+	if active_staff.values.has(new_thx.AC_id):
 		return
 	else:
-		active_staff.append(new_thx)
+		active_staff[new_thx.AC_id] = new_thx
 
 
 func delete_therapist(thx: Therapist) -> void:
-	if active_staff.has(thx):
+	if active_staff.has(thx.AC_id):
 		active_staff.erase(thx)
 
 	var check_rba: bool = false
 	if thx.therapist_type == Therapist.Type.RBA:
 		check_rba = true
 
-	for client: Client in active_clients:
-		if client.assigned_therapists.values().has(thx):
-			for key: Schedule.Block in client.assigned_therapists.keys():
-				if client.assigned_therapists[key] == thx:
-					client.clear_block(key)
-		if check_rba:
+	for block: Schedule.Block in thx.scheduled_blocks:
+		var target_client: Client = thx.scheduled_blocks[block]
+		target_client.clear_block(block)
+	if check_rba:
+		for client: Client in thx.caseload:
 			if client.assigned_RBA == thx:
 				client.clear_rba()
+	#DEPRECATED for client: Client in active_clients.values():
+		#if client.assigned_therapists.values().has(thx):
+			#for key: Schedule.Block in client.assigned_therapists.keys():
+				#if client.assigned_therapists[key] == thx:
+					#client.clear_block(key)
+		#if check_rba:
+			#if client.assigned_RBA == thx:
+				#client.clear_rba()
 
 
 func delete_client(client: Client) -> void:
-	if active_clients.has(client):
-		active_clients.erase(client)
+	active_clients.erase(client.AC_id)
 
 	for block: Block in client.assigned_therapists.keys():
 		var assigned_thx: Therapist = client.assigned_therapists[block]

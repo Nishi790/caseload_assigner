@@ -75,7 +75,8 @@ func set_site(new_site: Schedule.Site) -> void:
 
 
 func display_totals() -> void:
-	for thx: Therapist in CaseloadData.active_staff:
+	CaseloadData.alphabetize_lists()
+	for thx: Therapist in CaseloadData.alphabetical_staff:
 		for block: Schedule.Block in thx.admin_blocks:
 			if site != Schedule.Site.ALL_SITES and thx.work_schedule[block] == site:
 				increment_block_count(block)
@@ -89,7 +90,7 @@ func display_totals() -> void:
 
 func display_unfilled_slots() -> void:
 	var clients_to_display: Array[Client] = []
-	for client: Client in CaseloadData.active_clients:
+	for client: Client in CaseloadData.active_clients.values():
 		if not client.unfilled_slots.is_empty() and (site == Schedule.Site.ALL_SITES or client.scheduled_site == site):
 			clients_to_display.append(client)
 
@@ -104,7 +105,7 @@ func display_unfilled_slots() -> void:
 
 func display_requests() -> void:
 	var client_requests: Array[Client] = []
-	for client: Client in CaseloadData.active_clients:
+	for client: Client in CaseloadData.active_clients.values():
 		if not client.requested_blocks.is_empty() and (site == Schedule.Site.ALL_SITES or client.requested_site == site):
 			client_requests.append(client)
 

@@ -94,7 +94,7 @@ func _ready() -> void:
 	requested_site_selector.set_item_metadata(4, Schedule.Site.PEMBROKE)
 
 	var index: int = 1
-	for thx: Therapist in CaseloadData.active_staff:
+	for thx: Therapist in CaseloadData.alphabetical_staff:
 		if thx.therapist_type == Therapist.Type.RBA:
 			rba_selector.add_item(thx.therapist_name)
 			rba_selector.set_item_metadata(index, thx)
@@ -118,7 +118,7 @@ func update_rba_list() -> void:
 		notated_rbas.append(rba_selector.get_item_metadata(selector_index))
 
 	var new_addition_index: int = number_of_items
-	for thx: Therapist in CaseloadData.active_staff:
+	for thx: Therapist in CaseloadData.alphabetical_staff:
 		if thx.therapist_type == Therapist.Type.RBA and not notated_rbas.has(thx):
 			rba_selector.add_item(thx.therapist_name)
 			rba_selector.set_item_metadata(new_addition_index, thx)
@@ -146,7 +146,7 @@ func confirm_edits() -> void:
 		client.assigned_RBA = rba_selector.get_item_metadata(rba_selector.selected)
 		if client.assigned_RBA:
 			client.rba_name = client.assigned_RBA.therapist_name
-		CaseloadData.active_clients.append(client)
+		CaseloadData.active_clients[client.AC_id] = client
 
 	elif state == EditState.EDIT:
 		if not client.client_name.matchn(client_name_line.text.strip_edges()):

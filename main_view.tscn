@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c0mqoud5k6g32" path="res://UI/client_editor.tscn" id="5_kqe7w"]
 [ext_resource type="PackedScene" uid="uid://cuhonxrxaj0hq" path="res://UI/save_load_data.tscn" id="7_ytwkp"]
 
-[node name="MainView" type="TabContainer" node_paths=PackedStringArray("schedule_view", "summary_view", "therapist_adder", "client_adder")]
+[node name="MainView" type="TabContainer" node_paths=PackedStringArray("schedule_view", "summary_view", "therapist_adder", "client_adder", "back_up_timer")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -20,6 +20,7 @@ schedule_view = NodePath("Schedule")
 summary_view = NodePath("Summary")
 therapist_adder = NodePath("Add Therapist")
 client_adder = NodePath("Add Client")
+back_up_timer = NodePath("Timer")
 
 [node name="Schedule" parent="." instance=ExtResource("1_qgbmp")]
 visible = false
@@ -65,3 +66,8 @@ metadata/_tab_index = 3
 visible = false
 layout_mode = 2
 metadata/_tab_index = 4
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 300.0
+autostart = true
