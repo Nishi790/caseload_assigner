@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cacp663pkbxto"]
+
+[ext_resource type="Script" path="res://ac_data_import.gd" id="1_s0oy3"]
+
+[node name="DataImporter" type="Node"]
+script = ExtResource("1_s0oy3")

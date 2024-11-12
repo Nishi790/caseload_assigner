@@ -13,18 +13,23 @@ const service_code_key: String = "Service Code Name"
 
 var json_object: JSON = JSON.new()
 
-var parsed_clients: Array
-var parsed_employees: Array
+var parsed_clients: Dictionary #id: Client
+var parsed_employees: Dictionary #id: TempThx
+
+
+func _ready() -> void:
+	load_data("C:/Users/rebel/Downloads/test_2024-11-04.json_label")
 
 
 func load_data(path: String) -> void:
 	if not FileAccess.file_exists(path):
+		push_error("Can't locate file at path %s" % path)
 		return
+
 	var file_access: FileAccess = FileAccess.open(path, FileAccess.READ)
 	var json_content: String = file_access.get_as_text()
 
 	json_object.parse(json_content)
-
 	_parse_clients()
 
 
@@ -42,8 +47,14 @@ func _parse_clients() -> void:
 			current_client_id = entry[client_id_key]
 			current_client_array.append(entry)
 
-	for client_array: Array[Dictionary] in clients:
-		_create_client(client_array)
+	clients[current_client_id] = current_client_array
+
+	for client_array: Array[Dictionary] in clients.values():
+		if client_array[0][client_id_key].to_int() == 378024:
+			print("Matched admin client")
+			_create_admin_blocks(client_array)
+		else:
+			_create_client(client_array)
 
 
 func _create_client(client_data: Array[Dictionary]) -> void:
@@ -52,16 +63,79 @@ func _create_client(client_data: Array[Dictionary]) -> void:
 	client.client_name = client_data[0][client_name_key]
 
 	var visit_blocks: Array[Schedule.Block] = []
-	var visit_sites: Array[Schedule.Site] = []
+	var visit_thxs: Array[Dictionary]
+	var site_count_dict: Dictionary = {Schedule.Site.COLONNADE: 0, Schedule.Site.LANCASTER: 0,
+		Schedule.Site.KANATA: 0, Schedule.Site.PEMBROKE: 0, Schedule.Site.ALL_SITES: 0}
 
 	for visit_data: Dictionary in client_data:
 		var is_valid_visit: bool = check_valid_visit(visit_data[service_code_key])
+		if is_valid_visit:
+			var in_morning: bool = false
+			if visit_data[visit_hour_key].to_int() < 12:
+				in_morning = true
+			var block: Schedule.Block = get_visit_block(visit_data[visit_day_key], in_morning)
+			visit_blocks.append(block)
+
+			var visit_site = visit_data[facility_key]
+			var site: Schedule.Site
+			if visit_site != null:
+				site = get_service_site(visit_data[facility_key])
+			else:
+				site = Schedule.Site.ALL_SITES
+			site_count_dict[site] += 1
+
+			var visit_thx: Dictionary = {visit_data[employee_id_key]: visit_data[employee_name_key]}
+			visit_thxs.append(visit_thx)
+
+	client.scheduled_site = get_most_frequent_site(site_count_dict)
+	client.scheduled_blocks = visit_blocks
+	for index: int in visit_thxs.size():
+		var thx_dict: Dictionary = visit_thxs[index]
+		var thx_id: int = thx_dict.keys()[0].to_int()
+
+		if CaseloadData.active_staff.has(thx_id):
+			client.update_assigned_therapist(client.scheduled_blocks[index], CaseloadData.active_staff[thx_id])
+		else:  #Temporarily assign the therapist name, rather than object, to the dictionary
+			if parsed_employees.has(thx_id):
+				var temp_thx: TempTherapist = parsed_employees[thx_id]
+				temp_thx.add_block(client.scheduled_blocks[index], client)
+			else:
+				var temp_thx: TempTherapist = TempTherapist.new(thx_dict)
+				temp_thx.add_block(client.scheduled_blocks[index], client)
+				parsed_employees[temp_thx.id] = temp_thx
+			client.assigned_therapists[client.scheduled_blocks[index]] = parsed_employees[thx_id]
+	parsed_clients[client.AC_id] = client
+
+
+func _create_admin_blocks(visit_data: Array[Dictionary]) -> void:
+	for data: Dictionary in visit_data:
+		var therapist: TempTherapist
+		var thx_id: int = data[employee_id_key].to_int()
+		if parsed_employees.has(thx_id):
+			therapist = parsed_employees[thx_id]
+		else:
+			therapist = TempTherapist.new({data[employee_id_key]: data[employee_name_key]})
+			parsed_employees[thx_id] = therapist
+
+		var thx_is_lead: bool = check_admin_visit_type(data[service_code_key])
+		if thx_is_lead:
+			therapist.type = Therapist.Type.LEAD
+		else:
+			therapist.type = Therapist.Type.IT
+
 		var in_morning: bool = false
-		if visit_data[visit_hour_key].to_int() < 12:
+		if data[visit_hour_key].to_int() < 12:
 			in_morning = true
-		var block: Schedule.Block = get_visit_block(visit_data[visit_day_key], in_morning)
-		visit_blocks.append(block)
-		var site: Schedule.Site = get_service_site(visit_data[facility_key])
+
+		var block: Schedule.Block = get_visit_block(data[visit_day_key], in_morning)
+		var site: Schedule.Site
+
+		if data[facility_key] == null:
+			site = Schedule.Site.ALL_SITES
+		else:
+			site = get_service_site(data[facility_key])
+
+		therapist.add_admin(block, site)
 
 
 func check_valid_visit(service_code: String) -> bool:
@@ -71,6 +145,13 @@ func check_valid_visit(service_code: String) -> bool:
 		valid = true
 
 	return valid
+
+
+func check_admin_visit_type(service_code: String) -> bool:
+	if service_code.containsn("lead"):
+		return true
+	else:
+		return false
 
 
 func get_visit_block(day: String, in_morning: bool) -> Schedule.Block:
@@ -112,3 +193,13 @@ func get_service_site(site_name: String) -> Schedule.Site:
 	else:
 		site = Schedule.Site.ALL_SITES
 	return site
+
+
+func get_most_frequent_site(dict: Dictionary) -> Schedule.Site:
+	var max_value: int = -999
+	for key: Schedule.Site in dict:
+		if dict[key] > max_value:
+			max_value = dict[key]
+
+	var most_freq_site: Schedule.Site = dict.find_key(max_value)
+	return most_freq_site
