@@ -1,5 +1,7 @@
-class_name ACDataImported
+class_name ACDataImporter
 extends Node
+
+signal changes_to_confirm(clients: Array[Client], therapists: Array[TempTherapist])
 
 const client_id_key: String = "Client ID"
 const client_name_key: String = "Client First Name"
@@ -15,6 +17,9 @@ var json_object: JSON = JSON.new()
 
 var parsed_clients: Dictionary #id: Client
 var parsed_employees: Dictionary #id: TempThx
+
+var client_changes_to_confirm: Array[Client]
+var therapist_changes_to_confirm: Array[TempTherapist]
 
 
 func _ready() -> void:
@@ -56,6 +61,10 @@ func _parse_clients() -> void:
 		else:
 			_create_client(client_array)
 
+	_compare_existing_clients()
+	_compare_existing_therapists()
+
+
 
 func _create_client(client_data: Array[Dictionary]) -> void:
 	var client = Client.new()
@@ -93,17 +102,14 @@ func _create_client(client_data: Array[Dictionary]) -> void:
 		var thx_dict: Dictionary = visit_thxs[index]
 		var thx_id: int = thx_dict.keys()[0].to_int()
 
-		if CaseloadData.active_staff.has(thx_id):
-			client.update_assigned_therapist(client.scheduled_blocks[index], CaseloadData.active_staff[thx_id])
-		else:  #Temporarily assign the therapist name, rather than object, to the dictionary
-			if parsed_employees.has(thx_id):
-				var temp_thx: TempTherapist = parsed_employees[thx_id]
-				temp_thx.add_block(client.scheduled_blocks[index], client)
-			else:
-				var temp_thx: TempTherapist = TempTherapist.new(thx_dict)
-				temp_thx.add_block(client.scheduled_blocks[index], client)
-				parsed_employees[temp_thx.id] = temp_thx
-			client.assigned_therapists[client.scheduled_blocks[index]] = parsed_employees[thx_id]
+		if parsed_employees.has(thx_id):
+			var temp_thx: TempTherapist = parsed_employees[thx_id]
+			temp_thx.add_block(client.scheduled_blocks[index], client)
+		else:
+			var temp_thx: TempTherapist = TempTherapist.new(thx_dict)
+			temp_thx.add_block(client.scheduled_blocks[index], client)
+			parsed_employees[temp_thx.id] = temp_thx
+		client.assigned_therapists[client.scheduled_blocks[index]] = parsed_employees[thx_id]
 	parsed_clients[client.AC_id] = client
 
 
@@ -136,6 +142,82 @@ func _create_admin_blocks(visit_data: Array[Dictionary]) -> void:
 			site = get_service_site(data[facility_key])
 
 		therapist.add_admin(block, site)
+
+
+func _compare_existing_clients() -> void:
+	for id: int in parsed_clients:
+		if CaseloadData.active_clients.has(id):
+			var parsed_client: Client = parsed_clients[id]
+			var existing_client: Client = CaseloadData.active_clients[id]
+			if not _is_client_same(parsed_client, existing_client):
+				client_changes_to_confirm.append(parsed_client)
+		else:
+			CaseloadData.active_clients[id] = parsed_clients[id]
+
+
+func _is_client_same(parsed_client: Client, existing_client: Client) -> bool:
+	var same_schedule: bool = false
+	var same_therapists: bool = false
+	var same_site: bool = false
+
+	if parsed_client.scheduled_blocks == existing_client.scheduled_blocks:
+		same_schedule = true
+	if parsed_client.scheduled_site == existing_client.scheduled_site:
+		same_site = true
+	for block: Schedule.Block in parsed_client.assigned_therapists:
+		var parsed_thx = parsed_client.assigned_therapists[block]
+		if parsed_thx is Therapist:
+			if existing_client.assigned_therapists[block] != parsed_thx:
+				same_therapists = false
+				break
+		elif parsed_thx.type == TYPE_INT:
+			if existing_client.assigned_therapists[block].AC_id != parsed_thx:
+				same_therapists = false
+				break
+	if same_schedule and same_site and same_therapists:
+		return true
+	else:
+		return false
+
+
+func _compare_existing_therapists() -> void:
+	for id: int in parsed_employees:
+		if not CaseloadData.active_staff.has(id):
+			continue
+		var new_thx: TempTherapist = parsed_employees[id]
+		var existing_thx: Therapist = CaseloadData.active_staff[id]
+		var is_same: bool = _is_thx_same(new_thx, existing_thx)
+		if not is_same:
+			therapist_changes_to_confirm.append(new_thx)
+
+
+func _is_thx_same(new_thx: TempTherapist, existing_thx: Therapist) -> bool:
+	var same_scheduled_visits: bool = true
+	var same_clients: bool = true
+	var same_block_sites: bool = true
+	var same_admin: bool = true
+
+	for block: Schedule.Block in new_thx.scheduled_visits:
+		if not existing_thx.scheduled_blocks.has(block):
+			same_scheduled_visits = false
+			break
+		if existing_thx.scheduled_blocks[block].AC_id != new_thx.scheduled_visits[block].AC_id:
+			same_clients = false
+			break
+		var visit_site: Schedule.Site = new_thx.scheduled_visits[block].scheduled_site
+		if existing_thx.work_schedule[block] != visit_site:
+			same_block_sites = false
+			break
+
+	for block: Schedule.Block in new_thx.scheduled_admin:
+		if not existing_thx.admin_blocks.has(block):
+			same_admin = false
+			break
+
+	if same_scheduled_visits and same_clients and same_block_sites and same_admin:
+		return true
+
+	return false
 
 
 func check_valid_visit(service_code: String) -> bool:

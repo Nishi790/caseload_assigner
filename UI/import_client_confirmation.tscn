@@ -1,0 +1,526 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfi4rrsiubnhy"]
+
+[ext_resource type="Script" path="res://UI/import_client_confirmation.gd" id="1_g6r86"]
+
+[node name="ImportClientConfirmation" type="ConfirmationDialog"]
+initial_position = 1
+size = Vector2i(800, 600)
+visible = true
+ok_button_text = "Confirm"
+cancel_button_text = "Discard Changes"
+script = ExtResource("1_g6r86")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Existing" type="MarginContainer" parent="PanelContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="ExistingData" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing"]
+layout_mode = 2
+
+[node name="CurrentData" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+layout_mode = 2
+text = "Saved Client Data"
+horizontal_alignment = 1
+
+[node name="Identifiers" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+layout_mode = 2
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/Identifiers"]
+layout_mode = 2
+text = "Name: "
+
+[node name="Name" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/Identifiers"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Client A"
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/Identifiers"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="ACIDLabel" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/Identifiers"]
+layout_mode = 2
+text = "AC ID: "
+
+[node name="ID" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/Identifiers"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "668304"
+
+[node name="SiteData" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/SiteData"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Scheduled Site: "
+horizontal_alignment = 1
+
+[node name="CurrentSite" type="OptionButton" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/SiteData"]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Select Site"
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Colonnade"
+popup/item_1/id = 1
+popup/item_2/text = "Lancaster"
+popup/item_2/id = 2
+popup/item_3/text = "Kanata"
+popup/item_3/id = 3
+popup/item_4/text = "Pembroke"
+popup/item_4/id = 4
+
+[node name="MonAM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_type_variation = &"darker_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/MonAM"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/MonAM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Monday am"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/MonAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="MonPM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/MonPM"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/MonPM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Monday pm"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/MonPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TuesAM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_type_variation = &"darker_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/TuesAM"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/TuesAM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Tuesday am"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/TuesAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TuesdayPM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/TuesdayPM"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/TuesdayPM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Tuesday pm"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/TuesdayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="WednesdayAM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_type_variation = &"darker_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/WednesdayAM"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/WednesdayAM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Wednesday am"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/WednesdayAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="WednesdayPM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/WednesdayPM"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/WednesdayPM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Wednesday pm"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/WednesdayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="ThursdayAM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_type_variation = &"darker_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/ThursdayAM"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/ThursdayAM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Thursday am"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/ThursdayAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="ThursdayPM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/ThursdayPM"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/ThursdayPM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Thursday pm"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/ThursdayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="FridayAM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_type_variation = &"darker_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/FridayAM"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/FridayAM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Friday am"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/FridayAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="FridayPM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/FridayPM"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/FridayPM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Friday pm"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/FridayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="New" type="MarginContainer" parent="PanelContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="NewData" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New"]
+layout_mode = 2
+
+[node name="NewData" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData"]
+layout_mode = 2
+text = "Imported Client Data"
+horizontal_alignment = 1
+
+[node name="Identifiers" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData"]
+layout_mode = 2
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/Identifiers"]
+layout_mode = 2
+text = "Name: "
+
+[node name="Name" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/Identifiers"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Client A"
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/Identifiers"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="ACIDLabel" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/Identifiers"]
+layout_mode = 2
+text = "AC ID: "
+
+[node name="ID" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/Identifiers"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "668304"
+
+[node name="LoadedData" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SiteData" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/SiteData"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/SiteData/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/SiteData"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Scheduled Site: "
+horizontal_alignment = 1
+
+[node name="CurrentSite" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/SiteData"]
+layout_mode = 2
+
+[node name="MonAM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"darker_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/MonAM"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/MonAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/MonAM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Monday am"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/MonAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="MonPM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/MonPM"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/MonPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/MonPM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Monday pm"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/MonPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TuesAM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"darker_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/TuesAM"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/TuesAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/TuesAM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Tuesday am"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/TuesAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TuesdayPM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/TuesdayPM"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/TuesdayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/TuesdayPM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Tuesday pm"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/TuesdayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="WednesdayAM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"darker_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/WednesdayAM"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/WednesdayAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/WednesdayAM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Wednesday am"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/WednesdayAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="WednesdayPM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/WednesdayPM"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/WednesdayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/WednesdayPM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Wednesday pm"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/WednesdayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="ThursdayAM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"darker_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/ThursdayAM"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/ThursdayAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/ThursdayAM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Thursday am"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/ThursdayAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="ThursdayPM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/ThursdayPM"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/ThursdayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/ThursdayPM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Thursday pm"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/ThursdayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="FridayAM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"darker_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/FridayAM"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/FridayAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/FridayAM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Friday am"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/FridayAM/HBoxContainer"]
+layout_mode = 2
+
+[node name="FridayPM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"lighter_panel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/FridayPM"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/FridayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSlot" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/FridayPM/HBoxContainer"]
+custom_minimum_size = Vector2(124, 0)
+layout_mode = 2
+text = "Friday pm"
+horizontal_alignment = 1
+
+[node name="Therapist" type="Label" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/LoadedData/VBoxContainer/FridayPM/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData"]
+layout_mode = 2
+
+[node name="TransferSelected" type="Button" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/HBoxContainer"]
+layout_mode = 2
+text = "Transfer Selected Changes"
+
+[node name="TransferAll" type="Button" parent="PanelContainer/VBoxContainer/HSplitContainer/New/NewData/HBoxContainer"]
+layout_mode = 2
+text = "Transfer All Changes"
