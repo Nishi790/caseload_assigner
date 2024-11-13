@@ -25,6 +25,8 @@ fri_pm_label = NodePath("HBoxContainer2/PanelContainer10/FriPM")
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2

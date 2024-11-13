@@ -61,7 +61,10 @@ func _display_therapist(target_site: Schedule.Site) -> void:
 		var panel: PanelContainer = target_label.get_parent()
 
 		if therapist.admin_blocks.has(block):
-			panel.theme_type_variation = "free"
+			if site == Schedule.Site.ALL_SITES:
+				panel.theme_type_variation = "error"
+			else:
+				panel.theme_type_variation = "free"
 			target_label.set_text(Schedule.get_site_string(site))
 
 		else:

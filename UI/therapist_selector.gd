@@ -15,6 +15,7 @@ func _ready() -> void:
 	confirm_button.pressed.connect(select_therapist)
 
 	therapist_list.item_selected.connect(show_confirm_delete)
+	about_to_popup.connect(_update_item_list)
 	_update_item_list()
 
 

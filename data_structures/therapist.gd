@@ -39,22 +39,12 @@ static func deserialize_thx(thx_data: Dictionary) -> Therapist:
 	return new_thx
 
 
-func connect_clients(client_dict: Dictionary) -> void:
-	var clients_on_caseload: Array = scheduled_blocks.values()
+func connect_clients_by_id() -> void:
 	for block: Schedule.Block in scheduled_blocks:
 		var client_id: int = scheduled_blocks[block]
 		var client_object: Client = CaseloadData.active_clients[client_id]
 		scheduled_blocks[block] = client_object
 		client_object.update_assigned_therapist(block, self)
-
-	#DEPRECATED
-	#for client: Client in client_list:
-		#if clients_on_caseload.has(client.client_name):
-			#var client_key = scheduled_blocks.find_key(client.client_name)
-			#while client_key != null:
-				#scheduled_blocks[client_key] = client
-				#client.update_assigned_therapist(client_key, self)
-				#client_key = scheduled_blocks.find_key(client.client_name)
 
 
 func free_slot(block: Schedule.Block) -> void:

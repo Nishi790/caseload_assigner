@@ -1,7 +1,7 @@
 class_name ACDataImporter
-extends Node
+extends Resource
 
-signal changes_to_confirm(clients: Array[Client], therapists: Array[TempTherapist])
+signal changes_to_confirm(clients: Array[Client])
 
 const client_id_key: String = "Client ID"
 const client_name_key: String = "Client First Name"
@@ -19,11 +19,7 @@ var parsed_clients: Dictionary #id: Client
 var parsed_employees: Dictionary #id: TempThx
 
 var client_changes_to_confirm: Array[Client]
-var therapist_changes_to_confirm: Array[TempTherapist]
-
-
-func _ready() -> void:
-	load_data("C:/Users/rebel/Downloads/test_2024-11-04.json_label")
+var therapists_to_add: Array[TempTherapist]
 
 
 func load_data(path: String) -> void:
@@ -62,7 +58,8 @@ func _parse_clients() -> void:
 			_create_client(client_array)
 
 	_compare_existing_clients()
-	_compare_existing_therapists()
+
+	changes_to_confirm.emit(client_changes_to_confirm)
 
 
 
@@ -180,15 +177,19 @@ func _is_client_same(parsed_client: Client, existing_client: Client) -> bool:
 		return false
 
 
-func _compare_existing_therapists() -> void:
-	for id: int in parsed_employees:
-		if not CaseloadData.active_staff.has(id):
-			continue
-		var new_thx: TempTherapist = parsed_employees[id]
-		var existing_thx: Therapist = CaseloadData.active_staff[id]
-		var is_same: bool = _is_thx_same(new_thx, existing_thx)
-		if not is_same:
-			therapist_changes_to_confirm.append(new_thx)
+func connect_therapists() -> void:
+	for temp_thx: TempTherapist in parsed_employees.values():
+		var imported_therapist: Therapist
+		if CaseloadData.active_staff.has(temp_thx.id):
+			var existing_thx: Therapist = CaseloadData.active_staff[temp_thx.id]
+			var same: bool = _is_thx_same(temp_thx, existing_thx)
+			if same:
+				continue
+
+		imported_therapist = temp_thx.create_thx()
+		CaseloadData.active_staff[imported_therapist.AC_id] = imported_therapist
+		imported_therapist.connect_clients_by_id()
+		CaseloadData.clean_client_entries()
 
 
 func _is_thx_same(new_thx: TempTherapist, existing_thx: Therapist) -> bool:

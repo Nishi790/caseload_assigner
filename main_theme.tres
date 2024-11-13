@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://jnh3acetihx"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://jnh3acetihx"]
 
 [ext_resource type="StyleBox" uid="uid://b2jcsekcsbcjb" path="res://UI/vseparator_style_box.tres" id="1_4oo4g"]
 [ext_resource type="StyleBox" uid="uid://16muv1ca1dwd" path="res://UI/green_stylebox_basic.tres" id="2_ts1fj"]
@@ -9,6 +9,9 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdc1r"]
+bg_color = Color(0.519166, 0.153299, 0.146072, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hbp0"]
 bg_color = Color(0.415192, 0.548414, 0.327582, 1)
@@ -68,6 +71,8 @@ MarginContainer/constants/margin_top = 24
 VSeparator/styles/separator = ExtResource("1_4oo4g")
 darker_panel/base_type = &"PanelContainer"
 darker_panel/styles/panel = SubResource("StyleBoxFlat_7jygf")
+error/base_type = &"PanelContainer"
+error/styles/panel = SubResource("StyleBoxFlat_sdc1r")
 filled/base_type = &"OptionButton"
 filled/constants/align_to_largest_stylebox = 1
 filled/styles/hover = SubResource("StyleBoxFlat_4hbp0")

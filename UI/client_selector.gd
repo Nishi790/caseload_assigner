@@ -16,7 +16,6 @@ func _ready() -> void:
 	_update_client_list()
 
 
-
 func _edit_client() -> void:
 	var client: Client = _find_selected_client()
 	if client != null:
@@ -35,7 +34,7 @@ func _update_client_list() -> void:
 	client_list.clear()
 
 	var index: int = 0
-	for client: Client in CaseloadData.active_clients.values():
+	for client: Client in CaseloadData.alphabetical_clients:
 		var id_string: String = str(client.AC_id) + " " + client.client_name
 		client_list.add_item(id_string)
 		client_list.set_item_metadata(index, client)

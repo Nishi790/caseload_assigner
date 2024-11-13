@@ -71,8 +71,9 @@ func clear_rba() -> void:
 
 func update_assigned_therapist(block: Schedule.Block, therapist: Therapist) -> void:
 	if assigned_therapists.has(block):
-		var current_thx: Therapist = assigned_therapists[block]
-		current_thx.free_slot(block)
+		var current_thx = assigned_therapists[block]
+		if current_thx is Therapist:
+			current_thx.free_slot(block)
 
 	assigned_therapists[block] = therapist
 	therapist.schedule_client(block, self)
@@ -177,6 +178,16 @@ func schedule_requested_blocks() -> void:
 	requested_blocks = []
 
 
+func clean_assigned_therapists() -> void:
+	for block: Schedule.Block in assigned_therapists:
+		var thx = assigned_therapists[block]
+		if not thx is Therapist:
+			assigned_therapists.erase(block)
+			if scheduled_blocks.has(block):
+				scheduled_blocks.erase(block)
+			if not unfilled_slots.has(block):
+				unfilled_slots.append(block)
+
 
 func serialize_data() -> Dictionary:
 	var data: Dictionary = {}
@@ -189,9 +200,5 @@ func serialize_data() -> Dictionary:
 	data["unfilled_blocks"] = unfilled_slots
 	if assigned_RBA:
 		data["assigned_RBA"] = assigned_RBA.therapist_name
-	var therapist_names: Dictionary = {}
-	for slot: Schedule.Block in assigned_therapists:
-		therapist_names[slot] = assigned_therapists[slot].therapist_name
-	data["scheduled_therapists"] = therapist_names
 
 	return data

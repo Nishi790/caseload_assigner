@@ -184,7 +184,7 @@ func load_saved_data(path: String = "") -> Error:
 				active_clients[new_client.AC_id] = new_client
 			for entry: String in thx_dict:
 				var thx: Therapist = Therapist.deserialize_thx(thx_dict[entry])
-				thx.connect_clients(active_clients)
+				thx.connect_clients_by_id()
 				active_staff[thx.AC_id] = thx
 		else:
 			return error
@@ -237,7 +237,7 @@ func get_site_colour(site: Site) -> Color:
 
 
 func add_therapist(new_thx: Therapist) -> void:
-	if active_staff.values.has(new_thx.AC_id):
+	if active_staff.has(new_thx.AC_id):
 		return
 	else:
 		active_staff[new_thx.AC_id] = new_thx
@@ -258,14 +258,6 @@ func delete_therapist(thx: Therapist) -> void:
 		for client: Client in thx.caseload:
 			if client.assigned_RBA == thx:
 				client.clear_rba()
-	#DEPRECATED for client: Client in active_clients.values():
-		#if client.assigned_therapists.values().has(thx):
-			#for key: Schedule.Block in client.assigned_therapists.keys():
-				#if client.assigned_therapists[key] == thx:
-					#client.clear_block(key)
-		#if check_rba:
-			#if client.assigned_RBA == thx:
-				#client.clear_rba()
 
 
 func delete_client(client: Client) -> void:
@@ -274,3 +266,8 @@ func delete_client(client: Client) -> void:
 	for block: Block in client.assigned_therapists.keys():
 		var assigned_thx: Therapist = client.assigned_therapists[block]
 		assigned_thx.free_slot(block)
+
+
+func clean_client_entries() -> void:
+	for client: Client in active_clients.values():
+		client.clean_assigned_therapists()

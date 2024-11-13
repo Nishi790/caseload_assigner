@@ -30,7 +30,7 @@ func _ready() -> void:
 	thurs_am_selector, thurs_pm_selector, fri_am_selector, fri_pm_selector]
 
 	for selector: OptionButton in all_selectors:
-		selector.add_item("No Therapist")
+		selector.add_item("")
 		selector.select(0)
 		selector.tooltip_text = "No Therapist"
 		selector.set_item_metadata(0, null)
