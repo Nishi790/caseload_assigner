@@ -19,6 +19,8 @@ const block_name: StringName = &"Block"
 @export var thurs_pm_selector: OptionButton
 @export var fri_pm_selector: OptionButton
 
+@export var delete_button: Button
+
 var all_selectors: Array[OptionButton]
 
 var client: Client

@@ -12,7 +12,7 @@ line_spacing = 4.0
 font_size = 19
 font_color = Color(0.787759, 0.787759, 0.787759, 1)
 
-[node name="ScheduleView" type="PanelContainer" node_paths=PackedStringArray("client_schedule_container", "staff_schedule_container", "site_selector")]
+[node name="ScheduleView" type="PanelContainer" node_paths=PackedStringArray("client_schedule_container", "staff_schedule_container", "site_selector", "confirm_delete")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -24,6 +24,7 @@ therapist_entry_scene = ExtResource("3_dp36t")
 client_schedule_container = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Clients")
 staff_schedule_container = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Therapists")
 site_selector = NodePath("MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Site")
+confirm_delete = NodePath("ConfirmationDialog")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -156,6 +157,10 @@ text = "Fri(PM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
+[node name="Control" type="Control" parent="MarginContainer/ScrollContainer/VBoxContainer/ClientTitles"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
 [node name="Clients" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -253,5 +258,11 @@ text = "Fri(PM)"
 label_settings = SubResource("LabelSettings_2r55g")
 horizontal_alignment = 1
 
+[node name="Control" type="Control" parent="MarginContainer/ScrollContainer/VBoxContainer/TherapistTitles"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
 [node name="Therapists" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]

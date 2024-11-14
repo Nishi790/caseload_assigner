@@ -19,6 +19,8 @@ const block_name: StringName = &"block"
 @export var thurs_pm_label: Label
 @export var fri_pm_label: Label
 
+@export var delete_button: Button
+
 var all_labels: Array[Label]
 
 
@@ -39,6 +41,7 @@ func _ready() -> void:
 
 
 
+
 func set_therapist(new_therapist: Therapist, site: Schedule.Site = Schedule.Site.ALL_SITES) -> void:
 	therapist = new_therapist
 	_display_therapist(site)
@@ -53,23 +56,28 @@ func _display_therapist(target_site: Schedule.Site) -> void:
 	for block: Schedule.Block in therapist.work_schedule:
 		var site: Schedule.Site = therapist.work_schedule[block]
 
-		if target_site != Schedule.Site.ALL_SITES:
-			if site != target_site:
-				continue
-
 		var target_label: Label = find_label(block)
 		var panel: PanelContainer = target_label.get_parent()
 
 		if therapist.admin_blocks.has(block):
 			if site == Schedule.Site.ALL_SITES:
 				panel.theme_type_variation = "error"
-			else:
+				target_label.set_text(Schedule.get_site_string(site))
+			elif target_site == Schedule.Site.ALL_SITES or site == target_site:
 				panel.theme_type_variation = "free"
-			target_label.set_text(Schedule.get_site_string(site))
+				target_label.set_text(Schedule.get_site_string(site))
 
 		else:
 			panel.theme_type_variation = ""
 			target_label.set_text("")
+			var site_string: String = Schedule.get_site_string(site)
+			var client_name: String = ""
+			if therapist.scheduled_blocks.has(block):
+				client_name = therapist.scheduled_blocks[block].client_name
+				var tool_tip_text = ": ".join([site_string, client_name])
+				target_label.tooltip_text = tool_tip_text
+			else:
+				target_label.tooltip_text = site_string
 
 
 
