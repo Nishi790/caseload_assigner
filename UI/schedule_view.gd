@@ -68,8 +68,10 @@ func display_staff() -> void:
 		displayed_therapists.append(new_entry)
 
 
-func _update_affected_displays(affected_therapists: Array[Therapist]) -> void:
+func _update_affected_displays(affected_therapists: Array[Therapist], block: Schedule.Block) -> void:
 	_update_therapist_display(affected_therapists)
+	for client_display: PersonScheduleEntry in displayed_clients:
+		client_display.resort_thx_selector(block)
 
 
 func _update_therapist_display(affected_therapists: Array[Therapist]) -> void:
