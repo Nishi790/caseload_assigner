@@ -60,24 +60,29 @@ func _display_therapist(target_site: Schedule.Site) -> void:
 		var panel: PanelContainer = target_label.get_parent()
 
 		if therapist.admin_blocks.has(block):
+			var label_string_starter: String
+			if therapist.therapist_type == Therapist.Type.LEAD:
+				label_string_starter = "Lead: "
+			target_label.tooltip_text = Schedule.get_site_string(site)
 			if site == Schedule.Site.ALL_SITES:
 				panel.theme_type_variation = "error"
-				target_label.set_text(Schedule.get_site_string(site))
+				target_label.set_text(label_string_starter + Schedule.get_site_string(site))
 			elif target_site == Schedule.Site.ALL_SITES or site == target_site:
 				panel.theme_type_variation = "free"
-				target_label.set_text(Schedule.get_site_string(site))
+				target_label.set_text(label_string_starter + Schedule.get_site_string(site))
 
 		else:
-			panel.theme_type_variation = ""
-			target_label.set_text("")
 			var site_string: String = Schedule.get_site_string(site)
 			var client_name: String = ""
+			target_label.set_text("")
 			if therapist.scheduled_blocks.has(block):
 				client_name = therapist.scheduled_blocks[block].client_name
 				var tool_tip_text = ": ".join([site_string, client_name])
 				target_label.tooltip_text = tool_tip_text
+				panel.theme_type_variation = "thx_booked"
 			else:
 				target_label.tooltip_text = site_string
+				panel.theme_type_variation = ""
 
 
 

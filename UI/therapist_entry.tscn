@@ -44,6 +44,8 @@ theme_type_variation = &"site_panel"
 layout_mode = 2
 mouse_filter = 1
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -54,6 +56,8 @@ theme_type_variation = &"site_panel"
 layout_mode = 2
 mouse_filter = 1
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="PanelContainer3" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -64,6 +68,8 @@ theme_type_variation = &"site_panel"
 layout_mode = 2
 mouse_filter = 1
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="PanelContainer4" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -74,6 +80,8 @@ theme_type_variation = &"site_panel"
 layout_mode = 2
 mouse_filter = 1
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="PanelContainer5" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -84,6 +92,8 @@ theme_type_variation = &"site_panel"
 layout_mode = 2
 mouse_filter = 1
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="VSeparator" type="VSeparator" parent="."]
 layout_mode = 2
@@ -101,6 +111,8 @@ theme_type_variation = &"site_panel"
 layout_mode = 2
 mouse_filter = 1
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="PanelContainer7" type="PanelContainer" parent="HBoxContainer2"]
 layout_mode = 2
@@ -111,6 +123,8 @@ theme_type_variation = &"site_panel"
 layout_mode = 2
 mouse_filter = 1
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="PanelContainer8" type="PanelContainer" parent="HBoxContainer2"]
 layout_mode = 2
@@ -121,6 +135,8 @@ theme_type_variation = &"site_panel"
 layout_mode = 2
 mouse_filter = 1
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="PanelContainer9" type="PanelContainer" parent="HBoxContainer2"]
 layout_mode = 2
@@ -131,6 +147,8 @@ theme_type_variation = &"site_panel"
 layout_mode = 2
 mouse_filter = 1
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="PanelContainer10" type="PanelContainer" parent="HBoxContainer2"]
 layout_mode = 2
@@ -141,6 +159,8 @@ theme_type_variation = &"site_panel"
 layout_mode = 2
 mouse_filter = 1
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
 
 [node name="Delete" type="Button" parent="."]
 layout_mode = 2
