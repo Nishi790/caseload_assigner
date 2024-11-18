@@ -107,6 +107,8 @@ func _create_client(client_data: Array[Dictionary]) -> void:
 			temp_thx.add_block(client.scheduled_blocks[index], client)
 			parsed_employees[temp_thx.id] = temp_thx
 		client.assigned_therapists[client.scheduled_blocks[index]] = parsed_employees[thx_id]
+
+	client.scheduled_blocks.assign(Utilities.array_remove_duplicates(client.scheduled_blocks))
 	parsed_clients[client.AC_id] = client
 
 
@@ -154,17 +156,26 @@ func _compare_existing_clients() -> void:
 
 func _is_client_same(parsed_client: Client, existing_client: Client) -> bool:
 	var same_schedule: bool = false
-	var same_therapists: bool = false
+	var same_therapists: bool = true
 	var same_site: bool = false
 
+	parsed_client.scheduled_blocks.sort()
+	existing_client.scheduled_blocks.sort()
 	if parsed_client.scheduled_blocks == existing_client.scheduled_blocks:
 		same_schedule = true
 	if parsed_client.scheduled_site == existing_client.scheduled_site:
 		same_site = true
 	for block: Schedule.Block in parsed_client.assigned_therapists:
 		var parsed_thx = parsed_client.assigned_therapists[block]
+		if existing_client.assigned_therapists.has(block) == false:
+			same_therapists = false
+			break
 		if parsed_thx is Therapist:
 			if existing_client.assigned_therapists[block] != parsed_thx:
+				same_therapists = false
+				break
+		elif parsed_thx is TempTherapist:
+			if existing_client.assigned_therapists[block].AC_id != parsed_thx.id:
 				same_therapists = false
 				break
 		elif parsed_thx.type == TYPE_INT:

@@ -87,7 +87,7 @@ func complete_import(clients_to_confirm: Array[Client]) -> void:
 		var imported_client: Client = client_confirmation_queue.pop_back()
 		var existing_client: Client = CaseloadData.active_clients[imported_client.AC_id]
 		confirm_client_changes.load_clients(existing_client, imported_client)
-		await confirm_client_changes.confirmed
+		await confirm_client_changes.transfer_complete
 
 	data_importer.connect_therapists()
 	CaseloadData.back_up()

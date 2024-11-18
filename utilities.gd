@@ -32,3 +32,11 @@ static func find_alphabetical_insertion_index(string_to_insert: String, array_to
 			return index
 
 	return -1
+
+
+static func array_remove_duplicates(initial_array: Array) -> Array:
+	var unique_values: Array = []
+	for value in initial_array:
+		if not unique_values.has(value):
+			unique_values.append(value)
+	return unique_values

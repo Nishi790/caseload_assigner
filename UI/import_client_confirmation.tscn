@@ -4,6 +4,7 @@
 [ext_resource type="ButtonGroup" uid="uid://be32qc4rnycoc" path="res://UI/import_confirmation_button_group.tres" id="2_j1efp"]
 
 [node name="ImportClientConfirmation" type="AcceptDialog" node_paths=PackedStringArray("transfer_selection_button", "transfer_all_button", "discard_changes", "existing_client_name_label", "existing_client_id_label", "existing_client_site_selector", "existing_client_mon_am_label", "existing_client_mon_pm_label", "existing_client_tues_am_label", "existing_client_tues_pm_label", "existing_client_wed_am_label", "existing_client_wed_pm_label", "existing_client_thurs_am_label", "existing_client_thurs_pm_label", "existing_client_fri_am_label", "existing_client_fri_pm_label", "new_client_name_label", "new_client_id_label", "new_client_site_label", "new_client_mon_am_label", "new_client_mon_pm_label", "new_client_tues_am_label", "new_client_tues_pm_label", "new_client_wed_am_label", "new_client_wed_pm_label", "new_client_thurs_am_label", "new_client_thurs_pm_label", "new_client_fri_am_label", "new_client_fri_pm_label", "new_client_site_box", "new_client_mon_am_box", "new_client_mon_pm_box", "new_client_tues_am_box", "new_client_tues_pm_box", "new_client_wed_am_box", "new_client_wed_pm_box", "new_client_thurs_am_box", "new_client_thurs_pm_box", "new_client_fri_am_box", "new_client_fri_pm_box")]
+title = "Import Mismatch - Confirm Data Changes"
 initial_position = 1
 size = Vector2i(800, 600)
 visible = true
@@ -56,8 +57,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 792.0
-offset_bottom = 551.0
+offset_right = -8.0
+offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 2
 

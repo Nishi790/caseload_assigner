@@ -1,6 +1,8 @@
 class_name ImportClientConfirmation
 extends AcceptDialog
 
+signal transfer_complete
+
 const block_key: StringName = &"block"
 
 @export var transfer_selection_button: Button
@@ -59,6 +61,7 @@ var saved_client_block_labels: Dictionary
 func _ready() -> void:
 	transfer_all_button.pressed.connect(_set_up_transfer_all_client_data)
 	transfer_selection_button.pressed.connect(_set_up_transfer_selected_data)
+	about_to_popup.connect(_on_about_to_pop_up)
 
 	import_client_block_boxes = {
 		new_client_mon_am_box: Schedule.Block.MONDAY_AM,
@@ -162,13 +165,15 @@ func connect_block_data() -> void:
 func _set_up_transfer_all_client_data() -> void:
 	if confirmed.is_connected(_transfer_selected_data):
 		confirmed.disconnect(_transfer_selected_data)
-	confirmed.connect(_transfer_all_client_data)
+	if not confirmed.is_connected(_transfer_all_client_data):
+		confirmed.connect(_transfer_all_client_data)
 
 
 func _set_up_transfer_selected_data() -> void:
 	if confirmed.is_connected(_transfer_all_client_data):
 		confirmed.disconnect(_transfer_all_client_data)
-	confirmed.connect(_transfer_selected_data)
+	if not confirmed.is_connected(_transfer_selected_data):
+		confirmed.connect(_transfer_selected_data)
 
 
 func _transfer_all_client_data() -> void:
@@ -181,6 +186,7 @@ func _transfer_all_client_data() -> void:
 	saved_client.assigned_therapists = imported_client.assigned_therapists
 	saved_client.scheduled_blocks = imported_client.scheduled_blocks
 	saved_client.unfilled_slots = []
+	transfer_complete.emit()
 
 
 func _transfer_selected_data() -> void:
@@ -193,7 +199,7 @@ func _transfer_selected_data() -> void:
 		var block: Schedule.Block = import_client_block_boxes[box]
 		if box.button_pressed:
 			blocks_affected.append(block)
-		else:
+		elif imported_client.assigned_therapists.has(block):
 			var assigned_thx = imported_client.assigned_therapists[block]
 			if assigned_thx is TempTherapist and assigned_thx.scheduled_visits.has(block):
 				assigned_thx.remove_block(block)
@@ -211,14 +217,16 @@ func _transfer_selected_data() -> void:
 				var thx: Therapist = saved_client.assigned_therapists[block]
 				thx.free_slot(block)
 				saved_client.assigned_therapists.erase(block)
+	transfer_complete.emit()
 
 
 func _on_about_to_pop_up() -> void:
 	for box: CheckBox in import_client_block_boxes:
 		box.set_pressed_no_signal(false)
-	for label: Label in import_client_labels:
+	for label: Label in import_client_labels.values():
 		label.text = ""
-	for label: Label in saved_client_block_labels:
+	for label: Label in saved_client_block_labels.values():
 		label.text = ""
+	new_client_site_box.set_pressed_no_signal(false)
 
 	existing_client_site_selector.selected = -1

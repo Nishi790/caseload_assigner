@@ -84,9 +84,10 @@ func set_up_for_client(new_client: Client) -> void:
 				selector.tooltip_text = selector.get_item_text(item_index)
 				break
 
-	for block: Schedule.Block in client.unfilled_slots:
-		var selector: OptionButton = find_block_selector(block)
-		selector.theme_type_variation = "unfilled"
+	for block: Schedule.Block in client.scheduled_blocks:
+		if not client.assigned_therapists.has(block):
+			var selector: OptionButton = find_block_selector(block)
+			selector.theme_type_variation = "unfilled"
 
 
 
