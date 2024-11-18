@@ -133,6 +133,15 @@ func save_config() -> void:
 
 
 func back_up() -> void:
+	var dir_access: DirAccess = DirAccess.open(back_up_path)
+	var back_up_list: Array[String] = []
+	back_up_list.assign(Array(dir_access.get_files()))
+	back_up_list.reverse()
+	while back_up_list.size() > 15:
+		var back_up: String = back_up_list.pop_back()
+		var delete_path: String = back_up_path.path_join(back_up)
+		delete_path = ProjectSettings.globalize_path(delete_path)
+		OS.move_to_trash(delete_path)
 	var file_name: String = "back_up_" + Time.get_datetime_string_from_system() + ".schedule"
 	file_name = file_name.replace(":", "_")
 	file_name = file_name.replace("T", "_")
@@ -245,7 +254,10 @@ func add_therapist(new_thx: Therapist) -> void:
 
 func delete_therapist(thx: Therapist) -> void:
 	if active_staff.has(thx.AC_id):
-		active_staff.erase(thx)
+		active_staff.erase(thx.AC_id)
+
+	if alphabetical_staff.has(thx):
+		alphabetical_staff.erase(thx)
 
 	var check_rba: bool = false
 	if thx.therapist_type == Therapist.Type.RBA:
