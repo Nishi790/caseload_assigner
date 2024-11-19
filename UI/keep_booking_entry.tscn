@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" path="res://UI/keep_booking_entry.gd" id="1_7hixw"]
 
-[node name="HBoxContainer" type="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("name_label", "keep_button")]
 alignment = 1
 script = ExtResource("1_7hixw")
+name_label = NodePath("Name")
+keep_button = NodePath("Button")
 
 [node name="Name" type="Label" parent="."]
 layout_mode = 2

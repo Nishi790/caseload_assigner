@@ -17,7 +17,7 @@ font_color = Color(0.787759, 0.787759, 0.787759, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_6y4jn"]
 font_size = 20
 
-[node name="ScheduleView" type="PanelContainer" node_paths=PackedStringArray("double_booking_button", "client_schedule_container", "staff_schedule_container", "site_selector", "confirm_delete")]
+[node name="ScheduleView" type="PanelContainer" node_paths=PackedStringArray("double_booking_button", "client_schedule_container", "staff_schedule_container", "site_selector", "confirm_delete", "double_booking_panel")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -31,6 +31,7 @@ client_schedule_container = NodePath("MarginContainer/ScrollContainer/VBoxContai
 staff_schedule_container = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Therapists")
 site_selector = NodePath("MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/Site")
 confirm_delete = NodePath("ConfirmationDialog")
+double_booking_panel = NodePath("DoubleBookingPanel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -280,17 +281,23 @@ layout_mode = 2
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 
-[node name="DoubleBookingPanel" type="PopupPanel" parent="."]
+[node name="DoubleBookingPanel" type="PopupPanel" parent="." node_paths=PackedStringArray("entry_container", "therapist_name_label", "block_label", "site_label")]
 initial_position = 2
-size = Vector2i(600, 600)
-visible = true
+size = Vector2i(600, 300)
+theme_type_variation = &"TooltipPanel"
 script = ExtResource("4_hd82y")
+keep_entry_scene = ExtResource("5_nkr7k")
+entry_container = NodePath("VBoxContainer/Entries")
+therapist_name_label = NodePath("VBoxContainer/ThxName")
+block_label = NodePath("VBoxContainer/BlockData/Block")
+site_label = NodePath("VBoxContainer/BlockData/Site")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DoubleBookingPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 596.0
-offset_bottom = 596.0
+offset_left = 8.0
+offset_top = 2.0
+offset_right = 592.0
+offset_bottom = 298.0
+alignment = 1
 
 [node name="ThxName" type="Label" parent="DoubleBookingPanel/VBoxContainer"]
 layout_mode = 2

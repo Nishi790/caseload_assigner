@@ -83,7 +83,7 @@ func save_to_file(path: String) -> void:
 func select_import_file() -> void:
 	CaseloadData.back_up()
 	file_selector.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	file_selector.filters = ["*.json", "*.json-label"]
+	file_selector.filters = []
 	file_selector.popup_centered()
 	file_selector.file_selected.connect(open_import_file, ConnectFlags.CONNECT_ONE_SHOT)
 
@@ -91,7 +91,7 @@ func select_import_file() -> void:
 func select_import_new_schedule_file() -> void:
 	CaseloadData.save()
 	file_selector.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	file_selector.filters = ["*.json", "*.json-label"]
+	file_selector.filters = []
 	file_selector.popup_centered()
 	file_selector.file_selected.connect(open_import_new_file, ConnectFlags.CONNECT_ONE_SHOT)
 

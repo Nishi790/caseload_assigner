@@ -11,6 +11,7 @@ var entry_client: Client
 
 func _ready() -> void:
 	keep_button.pressed.connect(keep_client)
+	keep_button.grab_focus()
 
 
 func set_up(client: Client) -> void:
