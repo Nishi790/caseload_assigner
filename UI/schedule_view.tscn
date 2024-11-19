@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://306agrwgt51h"]
+[gd_scene load_steps=9 format=3 uid="uid://306agrwgt51h"]
 
 [ext_resource type="PackedScene" uid="uid://ulss7unlmaei" path="res://UI/person_entry.tscn" id="1_gj3bk"]
 [ext_resource type="Script" path="res://UI/schedule_view.gd" id="1_n0xfh"]
 [ext_resource type="PackedScene" uid="uid://de8mc07iaext6" path="res://UI/therapist_entry.tscn" id="3_dp36t"]
+[ext_resource type="Script" path="res://UI/double_booking_panel.gd" id="4_hd82y"]
+[ext_resource type="PackedScene" uid="uid://c4sf7fpdpmdrp" path="res://UI/keep_booking_entry.tscn" id="5_nkr7k"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8ajca"]
 font_size = 22
@@ -12,13 +14,17 @@ line_spacing = 4.0
 font_size = 19
 font_color = Color(0.787759, 0.787759, 0.787759, 1)
 
-[node name="ScheduleView" type="PanelContainer" node_paths=PackedStringArray("client_schedule_container", "staff_schedule_container", "site_selector", "confirm_delete")]
+[sub_resource type="LabelSettings" id="LabelSettings_6y4jn"]
+font_size = 20
+
+[node name="ScheduleView" type="PanelContainer" node_paths=PackedStringArray("double_booking_button", "client_schedule_container", "staff_schedule_container", "site_selector", "confirm_delete")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n0xfh")
+double_booking_button = NodePath("MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DoubleBookingCheck")
 client_entry_scene = ExtResource("1_gj3bk")
 therapist_entry_scene = ExtResource("3_dp36t")
 client_schedule_container = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Clients")
@@ -61,6 +67,13 @@ popup/item_3/text = "Kanata"
 popup/item_3/id = 3
 popup/item_4/text = "Pembroke"
 popup/item_4/id = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DoubleBookingCheck" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Check for Double Bookings"
 
 [node name="Control" type="Control" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 22)
@@ -266,3 +279,61 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+
+[node name="DoubleBookingPanel" type="PopupPanel" parent="."]
+initial_position = 2
+size = Vector2i(600, 600)
+visible = true
+script = ExtResource("4_hd82y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DoubleBookingPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 596.0
+offset_bottom = 596.0
+
+[node name="ThxName" type="Label" parent="DoubleBookingPanel/VBoxContainer"]
+layout_mode = 2
+text = "Brittany T"
+label_settings = SubResource("LabelSettings_6y4jn")
+horizontal_alignment = 1
+
+[node name="BlockData" type="HBoxContainer" parent="DoubleBookingPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="TitleBlock" type="Label" parent="DoubleBookingPanel/VBoxContainer/BlockData"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Block: "
+horizontal_alignment = 2
+
+[node name="Block" type="Label" parent="DoubleBookingPanel/VBoxContainer/BlockData"]
+layout_mode = 2
+text = "Monday AM"
+
+[node name="Control" type="Control" parent="DoubleBookingPanel/VBoxContainer/BlockData"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="TitleSite" type="Label" parent="DoubleBookingPanel/VBoxContainer/BlockData"]
+layout_mode = 2
+text = "Site: "
+
+[node name="Site" type="Label" parent="DoubleBookingPanel/VBoxContainer/BlockData"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Colonnade"
+
+[node name="Label" type="RichTextLabel" parent="DoubleBookingPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+bbcode_enabled = true
+text = "
+[center][font size=18]Double Booked Clients[/font][/center]"
+fit_content = true
+
+[node name="Entries" type="VBoxContainer" parent="DoubleBookingPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" parent="DoubleBookingPanel/VBoxContainer/Entries" instance=ExtResource("5_nkr7k")]
+layout_mode = 2

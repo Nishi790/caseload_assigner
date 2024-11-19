@@ -200,7 +200,8 @@ func connect_therapists() -> void:
 		imported_therapist = temp_thx.create_thx()
 		CaseloadData.active_staff[imported_therapist.AC_id] = imported_therapist
 		imported_therapist.connect_clients_by_id()
-		CaseloadData.clean_client_entries()
+
+	CaseloadData.clean_client_entries()
 
 
 func _is_thx_same(new_thx: TempTherapist, existing_thx: Therapist) -> bool:

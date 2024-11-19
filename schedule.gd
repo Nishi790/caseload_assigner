@@ -149,6 +149,14 @@ func back_up() -> void:
 	save(path)
 
 
+func clear_database() -> void:
+	release_therapist_references()
+	active_clients.clear()
+	active_staff.clear()
+	alphabetical_clients.clear()
+	alphabetical_staff.clear()
+
+
 func release_therapist_references() -> void:
 	for client: Client in active_clients.values():
 		client.assigned_RBA = null

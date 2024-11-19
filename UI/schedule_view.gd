@@ -4,6 +4,8 @@ extends PanelContainer
 
 var tab_id: int
 
+
+@export var double_booking_button: Button
 @export var client_entry_scene: PackedScene
 @export var therapist_entry_scene: PackedScene
 
@@ -11,6 +13,7 @@ var tab_id: int
 @export var staff_schedule_container: VBoxContainer
 @export var site_selector: OptionButton
 @export var confirm_delete: ConfirmationDialog
+@export var double_booking_panel: PopupPanel
 
 
 var displayed_site: Schedule.Site
@@ -20,6 +23,7 @@ var displayed_therapists: Array[TherapistEntry]
 
 
 func _ready() -> void:
+	double_booking_button.pressed.connect(check_for_double_bookings)
 	site_selector.item_selected.connect(new_site_selected)
 	displayed_site = Schedule.Site.ALL_SITES
 	display_clients(displayed_site)
@@ -145,3 +149,34 @@ func delete_client(client: Client):
 	client_display_to_delete.queue_free()
 	displayed_clients.erase(client_display_to_delete)
 	_update_therapist_display(thx_to_update)
+
+
+func check_for_double_bookings() -> void:
+	var double_booked_therapists: Dictionary = {}  #Therapist:Dictionary {Block: [Clients]}
+	for id: int in CaseloadData.active_staff:
+		var therapist: Therapist = CaseloadData.active_staff[id]
+		for block: Schedule.Block in therapist.scheduled_blocks:
+			var assigned_client: Client = therapist.scheduled_blocks[block]
+			for client: Client in CaseloadData.active_clients.values():
+				if client == assigned_client:
+					continue
+				if client.assigned_therapists.has(block):
+					var assigned_thx = client.assigned_therapists[block]
+					if assigned_thx is Therapist and assigned_thx.AC_id == id:
+						add_double_booking(double_booked_therapists, therapist, block, assigned_client, client)
+					elif assigned_thx is TempTherapist and assigned_thx.id == id:
+						add_double_booking(double_booked_therapists, therapist, block, assigned_client, client)
+
+	double_booking_panel.popup_centered()
+	double_booking_panel.set_up(double_booked_therapists)
+
+
+func add_double_booking(double_booking_dict: Dictionary, therapist: Therapist, block: Schedule.Block, assigned_client: Client, double_booking: Client) -> void:
+	if double_booking_dict.has(therapist):
+		var double_booking_entry: Dictionary = double_booking_dict[therapist]
+		if double_booking_entry.has(block):
+			double_booking_entry[block].append(double_booking)
+		else:
+			double_booking_entry[block] = [double_booking]
+	else:
+		double_booking_dict[therapist] = {block:[assigned_client, double_booking]}

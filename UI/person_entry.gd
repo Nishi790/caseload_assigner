@@ -64,14 +64,9 @@ func set_up_for_client(new_client: Client) -> void:
 
 	for block: Schedule.Block in Schedule.Block.values():
 		_sort_therapist_selector(block)
-
-	#for thx: Therapist in CaseloadData.active_staff.values():
-		#for selector: OptionButton in all_selectors:
-			#var block: Schedule.Block = selector.get_meta(block_name)
-			#if thx.work_schedule.has(block) and thx.work_schedule[block] == client.scheduled_site:
-				#selector.add_item(thx.therapist_name)
-				#var item_index: int = selector.item_count - 1
-				#selector.set_item_metadata(item_index, thx)
+		if not client.scheduled_blocks.has(block):
+			var selector: OptionButton = find_block_selector(block)
+			selector.disabled = true
 
 	for entry in client.assigned_therapists:
 		var therapist = client.assigned_therapists[entry]

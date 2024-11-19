@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://UI/import_client_confirmation.gd" id="1_g6r86"]
 [ext_resource type="ButtonGroup" uid="uid://be32qc4rnycoc" path="res://UI/import_confirmation_button_group.tres" id="2_j1efp"]
 
-[node name="ImportClientConfirmation" type="AcceptDialog" node_paths=PackedStringArray("transfer_selection_button", "transfer_all_button", "discard_changes", "existing_client_name_label", "existing_client_id_label", "existing_client_site_selector", "existing_client_mon_am_label", "existing_client_mon_pm_label", "existing_client_tues_am_label", "existing_client_tues_pm_label", "existing_client_wed_am_label", "existing_client_wed_pm_label", "existing_client_thurs_am_label", "existing_client_thurs_pm_label", "existing_client_fri_am_label", "existing_client_fri_pm_label", "new_client_name_label", "new_client_id_label", "new_client_site_label", "new_client_mon_am_label", "new_client_mon_pm_label", "new_client_tues_am_label", "new_client_tues_pm_label", "new_client_wed_am_label", "new_client_wed_pm_label", "new_client_thurs_am_label", "new_client_thurs_pm_label", "new_client_fri_am_label", "new_client_fri_pm_label", "new_client_site_box", "new_client_mon_am_box", "new_client_mon_pm_box", "new_client_tues_am_box", "new_client_tues_pm_box", "new_client_wed_am_box", "new_client_wed_pm_box", "new_client_thurs_am_box", "new_client_thurs_pm_box", "new_client_fri_am_box", "new_client_fri_pm_box")]
+[node name="ImportClientConfirmation" type="AcceptDialog" node_paths=PackedStringArray("transfer_selection_button", "transfer_all_button", "discard_changes_button", "existing_client_name_label", "existing_client_id_label", "existing_client_site_selector", "existing_client_mon_am_label", "existing_client_mon_pm_label", "existing_client_tues_am_label", "existing_client_tues_pm_label", "existing_client_wed_am_label", "existing_client_wed_pm_label", "existing_client_thurs_am_label", "existing_client_thurs_pm_label", "existing_client_fri_am_label", "existing_client_fri_pm_label", "new_client_name_label", "new_client_id_label", "new_client_site_label", "new_client_mon_am_label", "new_client_mon_pm_label", "new_client_tues_am_label", "new_client_tues_pm_label", "new_client_wed_am_label", "new_client_wed_pm_label", "new_client_thurs_am_label", "new_client_thurs_pm_label", "new_client_fri_am_label", "new_client_fri_pm_label", "new_client_site_box", "new_client_mon_am_box", "new_client_mon_pm_box", "new_client_tues_am_box", "new_client_tues_pm_box", "new_client_wed_am_box", "new_client_wed_pm_box", "new_client_thurs_am_box", "new_client_thurs_pm_box", "new_client_fri_am_box", "new_client_fri_pm_box")]
 title = "Import Mismatch - Confirm Data Changes"
 initial_position = 1
 size = Vector2i(800, 600)
@@ -12,7 +12,7 @@ ok_button_text = "Confirm"
 script = ExtResource("1_g6r86")
 transfer_selection_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer/TransferSelected")
 transfer_all_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer/TransferAll")
-discard_changes = NodePath("PanelContainer/VBoxContainer/HBoxContainer/DiscardAll")
+discard_changes_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer/DiscardAll")
 existing_client_name_label = NodePath("PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/Identifiers/Name")
 existing_client_id_label = NodePath("PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/Identifiers/ID")
 existing_client_site_selector = NodePath("PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData/SiteData/CurrentSite")
@@ -57,8 +57,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -49.0
+offset_right = 792.0
+offset_bottom = 551.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -125,12 +125,13 @@ popup/item_0/id = 999
 popup/item_0/disabled = true
 popup/item_0/separator = true
 popup/item_1/text = "Colonnade"
+popup/item_1/id = 1
 popup/item_2/text = "Lancaster"
-popup/item_2/id = 1
+popup/item_2/id = 2
 popup/item_3/text = "Kanata"
-popup/item_3/id = 2
+popup/item_3/id = 3
 popup/item_4/text = "Pembroke"
-popup/item_4/id = 3
+popup/item_4/id = 4
 
 [node name="MonAM" type="PanelContainer" parent="PanelContainer/VBoxContainer/HSplitContainer/Existing/ExistingData"]
 custom_minimum_size = Vector2(0, 24)

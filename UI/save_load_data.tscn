@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://UI/save_load_screen.gd" id="1_x1ppr"]
 [ext_resource type="PackedScene" uid="uid://cfi4rrsiubnhy" path="res://UI/import_client_confirmation.tscn" id="2_l0dpe"]
 
-[node name="SaveLoadData" type="PanelContainer" node_paths=PackedStringArray("open_button", "save_button", "import_button", "quit_button", "file_selector", "error_popup", "error_label", "confirm_client_changes")]
+[node name="SaveLoadData" type="PanelContainer" node_paths=PackedStringArray("open_button", "save_button", "import_button", "update_button", "quit_button", "load_test_data", "file_selector", "error_popup", "confirm_test_load", "error_label", "confirm_client_changes")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -13,9 +13,12 @@ script = ExtResource("1_x1ppr")
 open_button = NodePath("VBoxContainer/Open")
 save_button = NodePath("VBoxContainer/SaveAs")
 import_button = NodePath("VBoxContainer/Import")
+update_button = NodePath("VBoxContainer/UpdateSchedule")
 quit_button = NodePath("VBoxContainer/Quit")
+load_test_data = NodePath("VBoxContainer/LoadTest")
 file_selector = NodePath("FileSelector")
 error_popup = NodePath("ErrorPopup")
+confirm_test_load = NodePath("ConfirmTestDB")
 error_label = NodePath("ErrorPopup/Label")
 confirm_client_changes = NodePath("ImportClientConfirmation")
 
@@ -23,6 +26,10 @@ confirm_client_changes = NodePath("ImportClientConfirmation")
 layout_mode = 2
 size_flags_horizontal = 4
 alignment = 1
+
+[node name="LoadTest" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Load Sample Data"
 
 [node name="Open" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -35,7 +42,11 @@ text = "Save As"
 
 [node name="Import" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Import JSON"
+text = "Create New Schedule from JSON"
+
+[node name="UpdateSchedule" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Update Schedule from JSON"
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -63,3 +74,8 @@ horizontal_alignment = 1
 
 [node name="ImportClientConfirmation" parent="." instance=ExtResource("2_l0dpe")]
 visible = false
+
+[node name="ConfirmTestDB" type="ConfirmationDialog" parent="."]
+initial_position = 2
+size = Vector2i(955, 100)
+dialog_text = "Loading the test data will delete the current data - please ensure that you have saved the current data before continuing. "

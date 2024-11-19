@@ -4,10 +4,13 @@ extends PanelContainer
 @export var open_button: Button
 @export var save_button: Button
 @export var import_button: Button
+@export var update_button: Button
 @export var quit_button: Button
+@export var load_test_data: Button
 
 @export var file_selector: FileDialog
 @export var error_popup: PopupPanel
+@export var confirm_test_load: ConfirmationDialog
 @export var error_label: Label
 @export var confirm_client_changes: ImportClientConfirmation
 
@@ -17,9 +20,18 @@ var last_file_path: String = ""
 func _ready() -> void:
 	open_button.pressed.connect(select_open_file)
 	save_button.pressed.connect(select_save_file)
-	import_button.pressed.connect(select_import_file)
+	import_button.pressed.connect(select_import_new_schedule_file)
+	update_button.pressed.connect(select_import_file)
 	quit_button.pressed.connect(quit)
+	load_test_data.pressed.connect(confirm_test_load.popup_centered)
 	data_importer.changes_to_confirm.connect(complete_import)
+
+	confirm_test_load.confirmed.connect(initialize_test_data)
+
+
+func initialize_test_data() -> void:
+	CaseloadData.clear_database()
+	CaseloadData.set_up_test_database()
 
 
 func select_open_file() -> void:
@@ -74,6 +86,19 @@ func select_import_file() -> void:
 	file_selector.filters = ["*.json", "*.json-label"]
 	file_selector.popup_centered()
 	file_selector.file_selected.connect(open_import_file, ConnectFlags.CONNECT_ONE_SHOT)
+
+
+func select_import_new_schedule_file() -> void:
+	CaseloadData.save()
+	file_selector.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	file_selector.filters = ["*.json", "*.json-label"]
+	file_selector.popup_centered()
+	file_selector.file_selected.connect(open_import_new_file, ConnectFlags.CONNECT_ONE_SHOT)
+
+
+func open_import_new_file(path: String) -> void:
+	CaseloadData.clear_database()
+	data_importer.load_data(path)
 
 
 func open_import_file(path: String) -> void:

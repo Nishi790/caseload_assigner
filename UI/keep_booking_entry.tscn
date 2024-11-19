@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4sf7fpdpmdrp"]
+
+[ext_resource type="Script" path="res://UI/keep_booking_entry.gd" id="1_7hixw"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+alignment = 1
+script = ExtResource("1_7hixw")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+text = "Test Client"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "Keep Booking"

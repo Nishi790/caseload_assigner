@@ -147,6 +147,9 @@ func clear_block(block: Schedule.Block) -> void:
 		unfilled_slots.sort()
 
 	if assigned_therapists.has(block):
+		if assigned_therapists[block] is Therapist:
+			var thx: Therapist = assigned_therapists[block]
+			thx.free_slot(block)
 		assigned_therapists.erase(block)
 
 	data_changed.emit(self)
@@ -179,14 +182,22 @@ func schedule_requested_blocks() -> void:
 
 
 func clean_assigned_therapists() -> void:
-	for block: Schedule.Block in assigned_therapists:
+	print(assigned_therapists.keys().size())
+	for block: Schedule.Block in assigned_therapists.keys():
 		var thx = assigned_therapists[block]
-		if not thx is Therapist:
+		if thx is Therapist:
+			if thx.scheduled_blocks.has(block) and thx.scheduled_blocks[block] != self:
+				assigned_therapists.erase(block)
+				if not unfilled_slots.has(block):
+					unfilled_slots.append(block)
+		else:
 			assigned_therapists.erase(block)
-			if scheduled_blocks.has(block):
-				scheduled_blocks.erase(block)
 			if not unfilled_slots.has(block):
 				unfilled_slots.append(block)
+
+	for block: Schedule.Block in scheduled_blocks:
+		if not assigned_therapists.has(block) and not unfilled_slots.has(block):
+			unfilled_slots.append(block)
 
 
 func serialize_data() -> Dictionary:

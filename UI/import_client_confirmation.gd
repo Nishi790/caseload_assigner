@@ -7,7 +7,7 @@ const block_key: StringName = &"block"
 
 @export var transfer_selection_button: Button
 @export var transfer_all_button: Button
-@export var discard_changes: Button
+@export var discard_changes_button: Button
 
 @export_group("existing_client")
 @export var existing_client_name_label: Label
@@ -62,6 +62,7 @@ func _ready() -> void:
 	transfer_all_button.pressed.connect(_set_up_transfer_all_client_data)
 	transfer_selection_button.pressed.connect(_set_up_transfer_selected_data)
 	about_to_popup.connect(_on_about_to_pop_up)
+	discard_changes_button.pressed.connect(_set_up_discard)
 
 	import_client_block_boxes = {
 		new_client_mon_am_box: Schedule.Block.MONDAY_AM,
@@ -134,7 +135,10 @@ func set_up_saved_client(client: Client) -> void:
 	if client.scheduled_site == Schedule.Site.ALL_SITES:
 		existing_client_site_selector.select(0)
 	else:
-		var index: int = existing_client_site_selector.get_item_index(client.scheduled_site)
+		#for index: int in existing_client_site_selector.item_count:
+			#print("%d: %s: ID = %d" % [index, existing_client_site_selector.get_item_text(index), existing_client_site_selector.get_item_id(index)])
+		var index: int = existing_client_site_selector.get_item_index(client.scheduled_site + 1)
+		print(existing_client_site_selector.get_item_text(index))
 		existing_client_site_selector.select(index)
 
 	for block: Schedule.Block in client.scheduled_blocks:
@@ -165,6 +169,8 @@ func connect_block_data() -> void:
 func _set_up_transfer_all_client_data() -> void:
 	if confirmed.is_connected(_transfer_selected_data):
 		confirmed.disconnect(_transfer_selected_data)
+	if confirmed.is_connected(_discard_changes):
+		confirmed.disconnect(_discard_changes)
 	if not confirmed.is_connected(_transfer_all_client_data):
 		confirmed.connect(_transfer_all_client_data)
 
@@ -172,8 +178,19 @@ func _set_up_transfer_all_client_data() -> void:
 func _set_up_transfer_selected_data() -> void:
 	if confirmed.is_connected(_transfer_all_client_data):
 		confirmed.disconnect(_transfer_all_client_data)
+	if confirmed.is_connected(_discard_changes):
+		confirmed.disconnect(_discard_changes)
 	if not confirmed.is_connected(_transfer_selected_data):
 		confirmed.connect(_transfer_selected_data)
+
+
+func _set_up_discard() -> void:
+	if confirmed.is_connected(_transfer_all_client_data):
+		confirmed.disconnect(_transfer_all_client_data)
+	if confirmed.is_connected(_transfer_selected_data):
+		confirmed.disconnect(_transfer_selected_data)
+	if not confirmed.is_connected(_discard_changes):
+		confirmed.connect(_discard_changes)
 
 
 func _transfer_all_client_data() -> void:
@@ -184,15 +201,17 @@ func _transfer_all_client_data() -> void:
 		saved_client.scheduled_site = existing_client_site_selector.get_selected_id()
 
 	saved_client.assigned_therapists = imported_client.assigned_therapists
-	saved_client.scheduled_blocks = imported_client.scheduled_blocks
-	saved_client.unfilled_slots = []
+	for block: Schedule.Block in saved_client.assigned_therapists:
+		var thx = saved_client.assigned_therapists[block]
+		if thx is TempTherapist:
+			thx.add_block(block, saved_client)
 	transfer_complete.emit()
 
 
 func _transfer_selected_data() -> void:
 	if new_client_site_box.button_pressed and imported_client.scheduled_site != Schedule.Site.ALL_SITES:
 		saved_client.scheduled_site = imported_client.scheduled_site
-	else: saved_client.scheduled_site = existing_client_site_selector.get_selected_id()
+	else: saved_client.scheduled_site = existing_client_site_selector.get_selected_id() - 1
 
 	var blocks_affected: Array[Schedule.Block] = []
 	for box: CheckBox in import_client_block_boxes:
@@ -202,11 +221,20 @@ func _transfer_selected_data() -> void:
 		elif imported_client.assigned_therapists.has(block):
 			var assigned_thx = imported_client.assigned_therapists[block]
 			if assigned_thx is TempTherapist and assigned_thx.scheduled_visits.has(block):
-				assigned_thx.remove_block(block)
-				assigned_thx.add_admin(block, Schedule.Site.ALL_SITES)
+				if saved_client.assigned_therapists.has(block) and saved_client.assigned_therapists[block].AC_id != assigned_thx.id:
+					assigned_thx.remove_block(block)
+					var site: Schedule.Site = Schedule.Site.ALL_SITES
+					if imported_client.scheduled_site != Schedule.Site.ALL_SITES:
+						site = imported_client.scheduled_site
+					elif saved_client.scheduled_site != Schedule.Site.ALL_SITES:
+						site = saved_client.scheduled_site
+
+					assigned_thx.add_admin(block, site)
 
 	for block: Schedule.Block in blocks_affected:
 		if imported_client.assigned_therapists.has(block):
+			var assigned_thx: TempTherapist = imported_client.assigned_therapists[block]
+			assigned_thx.add_block(block, saved_client)
 			if not saved_client.scheduled_blocks.has(block):
 				saved_client.scheduled_blocks.append(block)
 			if saved_client.unfilled_slots.has(block):
@@ -217,6 +245,10 @@ func _transfer_selected_data() -> void:
 				var thx: Therapist = saved_client.assigned_therapists[block]
 				thx.free_slot(block)
 				saved_client.assigned_therapists.erase(block)
+	transfer_complete.emit()
+
+
+func _discard_changes() -> void:
 	transfer_complete.emit()
 
 
