@@ -4,7 +4,7 @@ extends Resource
 signal changes_to_confirm(clients: Array[Client])
 
 const client_id_key: String = "Client ID"
-const client_name_key: String = "Client First Name"
+const client_name_key: String = "Client Full Name"
 const employee_id_key: String = "Employee ID"
 const employee_name_key: String = "Employee Full Name"
 const visit_day_key: String = "Visit Start Day of Week"
