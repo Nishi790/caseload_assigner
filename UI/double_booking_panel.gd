@@ -15,17 +15,6 @@ var double_booking_array: Array[Dictionary]
 var active_booking: Dictionary
 
 
-func _ready() -> void:
-	visibility_changed.connect(visibility_changing)
-
-
-func visibility_changing() -> void:
-	if not visible:
-		print("hiding")
-	else:
-		print("Showing pop-up")
-
-
 func set_up(booking_dict: Dictionary) -> void:
 	double_booking_dict = booking_dict
 	for thx: Therapist in double_booking_dict:

@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsquoi7exn5ue"]
+
+[ext_resource type="Script" path="res://UI/therapist_site_error.gd" id="1_qnp7c"]
+
+[node name="VBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("block_label", "site_selector", "name_label")]
+script = ExtResource("1_qnp7c")
+block_label = NodePath("BlockName")
+site_selector = NodePath("SiteSelector")
+name_label = NodePath("StaffName")
+
+[node name="StaffName" type="Label" parent="."]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="BlockName" type="Label" parent="."]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="SiteSelector" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 1
+popup/item_0/text = "All Sites"

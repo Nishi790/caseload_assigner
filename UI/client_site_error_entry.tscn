@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://4gqngjfrl43m"]
+
+[ext_resource type="Script" path="res://UI/client_site_error.gd" id="1_3afnh"]
+
+[node name="Entry" type="VBoxContainer" node_paths=PackedStringArray("site_selector", "name_label")]
+script = ExtResource("1_3afnh")
+site_selector = NodePath("SelectSite")
+name_label = NodePath("ClientName")
+
+[node name="ClientName" type="Label" parent="."]
+layout_mode = 2
+text = "Client Name
+"
+horizontal_alignment = 1
+
+[node name="SelectSite" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 1
+popup/item_0/text = "All Sites"

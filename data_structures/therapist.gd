@@ -68,6 +68,7 @@ func add_work_block_to_schedule(block: Schedule.Block, site: Schedule.Site) -> v
 		print_debug("Therapist is already working on %s at %s. Changing Site to %s" % [Schedule.get_block_string(block), Schedule.get_site_string(work_schedule[block]), Schedule.get_site_string(site)])
 
 	work_schedule[block] = site
+
 	if not admin_blocks.has(block):
 		admin_blocks.append(block)
 

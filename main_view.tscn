@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2335b1amv3tf"]
+[gd_scene load_steps=9 format=3 uid="uid://b2335b1amv3tf"]
 
 [ext_resource type="Script" path="res://UI/main_view.gd" id="1_63lpq"]
 [ext_resource type="PackedScene" uid="uid://306agrwgt51h" path="res://UI/schedule_view.tscn" id="1_qgbmp"]
@@ -6,9 +6,10 @@
 [ext_resource type="Script" path="res://UI/summary_view.gd" id="2_wse6r"]
 [ext_resource type="PackedScene" uid="uid://bahd2mied2bol" path="res://UI/add_therapist_page.tscn" id="4_j6g2b"]
 [ext_resource type="PackedScene" uid="uid://c0mqoud5k6g32" path="res://UI/client_editor.tscn" id="5_kqe7w"]
+[ext_resource type="PackedScene" uid="uid://bga5c4gphlx3g" path="res://UI/error_reviewer.tscn" id="7_18k50"]
 [ext_resource type="PackedScene" uid="uid://cuhonxrxaj0hq" path="res://UI/save_load_data.tscn" id="7_ytwkp"]
 
-[node name="MainView" type="TabContainer" node_paths=PackedStringArray("schedule_view", "summary_view", "therapist_adder", "client_adder", "back_up_timer")]
+[node name="MainView" type="TabContainer" node_paths=PackedStringArray("schedule_view", "summary_view", "therapist_adder", "site_error_review", "client_adder", "back_up_timer")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,6 +20,7 @@ script = ExtResource("1_63lpq")
 schedule_view = NodePath("Schedule")
 summary_view = NodePath("Summary")
 therapist_adder = NodePath("Add Therapist")
+site_error_review = NodePath("Review Site Errors")
 client_adder = NodePath("Add Client")
 back_up_timer = NodePath("Timer")
 
@@ -62,10 +64,14 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
+[node name="Review Site Errors" parent="." instance=ExtResource("7_18k50")]
+visible = false
+layout_mode = 2
+
 [node name="Menu" parent="." instance=ExtResource("7_ytwkp")]
 visible = false
 layout_mode = 2
-metadata/_tab_index = 4
+metadata/_tab_index = 5
 
 [node name="Timer" type="Timer" parent="."]
 process_mode = 3

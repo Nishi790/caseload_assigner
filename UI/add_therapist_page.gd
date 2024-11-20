@@ -5,12 +5,15 @@ signal therapist_created(therapist: Therapist)
 
 const meta_key: StringName = &"block"
 
+@export var confirm_box: ConfirmationDialog
+
 @export var therapist_selector: TherapistSelector
 
 @export var create_new_button: Button
 @export var edit_existing: Button
 
 @export var name_line: LineEdit
+@export var ac_id_selector: SpinBox
 @export var role_selector: OptionButton
 
 @export var monday_location: OptionButton
@@ -39,9 +42,10 @@ var all_days: Array[CheckBox]
 var all_site_selectors: Array[OptionButton]
 
 var therapist: Therapist
-
+var last_AC_id: int = 0
 
 func _ready() -> void:
+	ac_id_selector.value_changed.connect(confirm_id_change)
 	monday_am_checkbox.set_meta(meta_key, Schedule.Block.MONDAY_AM)
 	monday_pm_checkbox.set_meta(meta_key, Schedule.Block.MONDAY_PM)
 	tuesday_am_checkbox.set_meta(meta_key, Schedule.Block.TUESDAY_AM)
@@ -99,6 +103,10 @@ func _edit_therapist(thx: Therapist) -> void:
 
 	var role: Therapist.Type = therapist.therapist_type
 	role_selector.select(role)
+
+	var id: int = therapist.AC_id
+	ac_id_selector.value = id
+	last_AC_id = id
 
 	for box: CheckBox in all_days:
 		if therapist.work_schedule.keys().has(box.get_meta(meta_key)):
@@ -177,6 +185,24 @@ func _set_site(_site_index: int, day_selector: OptionButton) -> void:
 			therapist.add_work_block_to_schedule(block, day_selector.get_selected_metadata())
 
 
+func confirm_id_change(value: float) -> void:
+	confirm_box.popup_centered()
+	confirm_box.confirm_id(value)
+	confirm_box.confirmed.connect(_set_AC_id.bind(value), ConnectFlags.CONNECT_ONE_SHOT)
+	confirm_box.canceled.connect(_reset_id_selector, ConnectFlags.CONNECT_ONE_SHOT)
+
+
+func _reset_id_selector() -> void:
+	ac_id_selector.value = last_AC_id
+
+
+func _set_AC_id(value: float) -> void:
+	if confirm_box.canceled.is_connected(_reset_id_selector):
+		confirm_box.canceled.disconnect(_reset_id_selector)
+	therapist.AC_id = int(value)
+	last_AC_id = int(value)
+
+
 func reset_creator() -> void:
 	create_new_button.disabled = false
 	edit_existing.disabled = false
@@ -187,14 +213,23 @@ func reset_creator() -> void:
 		site_selector.select(0)
 
 	name_line.clear()
-
+	ac_id_selector.value = 0
 	therapist = Therapist.new()
 
 
 func save_therapist() -> void:
+	if therapist.AC_id == 0:
+		confirm_box.popup_centered()
+		confirm_box.save_error_missing_id()
+		await confirm_box.confirmed
+		return
+
 	therapist.therapist_name = name_line.text.strip_edges()
 	if therapist.therapist_name.is_empty():
-		printerr("Can't save Therapist without a name!")
+		confirm_box.popup_centered()
+		confirm_box.save_error_missing_name()
+		await confirm_box.confirmed
+		return
 
 	therapist.therapist_type = role_selector.get_selected_id() as Therapist.Type
 	therapist_created.emit(therapist)

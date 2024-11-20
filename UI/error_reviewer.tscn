@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://bga5c4gphlx3g"]
+
+[ext_resource type="Script" path="res://UI/error_reviewer.gd" id="1_67suk"]
+[ext_resource type="LabelSettings" uid="uid://cknp0vdydr0kq" path="res://UI/title_label_settings.tres" id="2_wh25y"]
+[ext_resource type="PackedScene" uid="uid://4gqngjfrl43m" path="res://UI/client_site_error_entry.tscn" id="3_k0ceg"]
+[ext_resource type="PackedScene" uid="uid://bsquoi7exn5ue" path="res://UI/therapist_site_error_entry.tscn" id="4_t8y61"]
+
+[node name="ErrorReviewer" type="PanelContainer" node_paths=PackedStringArray("client_site_error_container", "staff_site_error_container", "confirm_button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_67suk")
+client_site_error_container = NodePath("ScrollContainer/MarginContainer/VBoxContainer/MarginContainer/ClientAndSite")
+staff_site_error_container = NodePath("ScrollContainer/MarginContainer/VBoxContainer/StaffMargins/StaffContainer")
+client_site_error_scene = ExtResource("3_k0ceg")
+staff_site_error_scene = ExtResource("4_t8y61")
+confirm_button = NodePath("ScrollContainer/MarginContainer/VBoxContainer/Confirm")
+metadata/_tab_index = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Potential Data Errors to Review"
+label_settings = ExtResource("2_wh25y")
+horizontal_alignment = 1
+
+[node name="MissingSites" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Clients with missing sites:"
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ClientAndSite" type="HFlowContainer" parent="ScrollContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="StaffSites" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Staff with missing sites:"
+
+[node name="StaffMargins" type="MarginContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StaffContainer" type="HFlowContainer" parent="ScrollContainer/MarginContainer/VBoxContainer/StaffMargins"]
+layout_mode = 2
+
+[node name="Confirm" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Confirm Changes"

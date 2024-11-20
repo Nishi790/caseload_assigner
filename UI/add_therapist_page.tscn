@@ -1,19 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://bahd2mied2bol"]
+[gd_scene load_steps=4 format=3 uid="uid://bahd2mied2bol"]
 
 [ext_resource type="Script" path="res://UI/add_therapist_page.gd" id="1_wlec0"]
 [ext_resource type="PackedScene" uid="uid://brmkcjtnru4w6" path="res://UI/therapist_selector.tscn" id="2_xayqv"]
+[ext_resource type="Script" path="res://UI/therapist_edit_confirmation.gd" id="3_jua6d"]
 
-[node name="AddTherapistPage" type="PanelContainer" node_paths=PackedStringArray("therapist_selector", "create_new_button", "edit_existing", "name_line", "role_selector", "monday_location", "monday_am_checkbox", "monday_pm_checkbox", "tuesday_location", "tuesday_am_checkbox", "tuesday_pm_checkbox", "wednesday_location", "wednesday_am_checkbox", "wednesday_pm_checkbox", "thursday_location", "thursday_am_checkbox", "thursday_pm_checkbox", "friday_location", "friday_am_checkbox", "friday_pm_checkbox", "confirm")]
+[node name="AddTherapistPage" type="PanelContainer" node_paths=PackedStringArray("confirm_box", "therapist_selector", "create_new_button", "edit_existing", "name_line", "ac_id_selector", "role_selector", "monday_location", "monday_am_checkbox", "monday_pm_checkbox", "tuesday_location", "tuesday_am_checkbox", "tuesday_pm_checkbox", "wednesday_location", "wednesday_am_checkbox", "wednesday_pm_checkbox", "thursday_location", "thursday_am_checkbox", "thursday_pm_checkbox", "friday_location", "friday_am_checkbox", "friday_pm_checkbox", "confirm")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wlec0")
+confirm_box = NodePath("ConfirmationDialog")
 therapist_selector = NodePath("TherapistSelector")
 create_new_button = NodePath("CenterContainer/VBoxContainer/Options/NewThx")
 edit_existing = NodePath("CenterContainer/VBoxContainer/Options/Edit")
 name_line = NodePath("CenterContainer/VBoxContainer/Name/LineEdit")
+ac_id_selector = NodePath("CenterContainer/VBoxContainer/ID/ACID")
 role_selector = NodePath("CenterContainer/VBoxContainer/Role")
 monday_location = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/MondayMargins/Monday/Site")
 monday_am_checkbox = NodePath("CenterContainer/VBoxContainer/PanelContainer/WorkDays/MondayMargins/Monday/AM")
@@ -62,6 +65,18 @@ text = "Therapist Name:"
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 placeholder_text = "Insert Name"
+
+[node name="ID" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/ID"]
+layout_mode = 2
+text = "Alayacare ID: "
+
+[node name="ACID" type="SpinBox" parent="CenterContainer/VBoxContainer/ID"]
+layout_mode = 2
+max_value = 10000.0
 
 [node name="Role" type="OptionButton" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -271,3 +286,8 @@ size_flags_horizontal = 4
 text = "Confirm"
 
 [node name="TherapistSelector" parent="." instance=ExtResource("2_xayqv")]
+visible = false
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+initial_position = 2
+script = ExtResource("3_jua6d")

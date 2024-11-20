@@ -135,10 +135,7 @@ func set_up_saved_client(client: Client) -> void:
 	if client.scheduled_site == Schedule.Site.ALL_SITES:
 		existing_client_site_selector.select(0)
 	else:
-		#for index: int in existing_client_site_selector.item_count:
-			#print("%d: %s: ID = %d" % [index, existing_client_site_selector.get_item_text(index), existing_client_site_selector.get_item_id(index)])
 		var index: int = existing_client_site_selector.get_item_index(client.scheduled_site + 1)
-		print(existing_client_site_selector.get_item_text(index))
 		existing_client_site_selector.select(index)
 
 	for block: Schedule.Block in client.scheduled_blocks:

@@ -182,7 +182,6 @@ func schedule_requested_blocks() -> void:
 
 
 func clean_assigned_therapists() -> void:
-	print(assigned_therapists.keys().size())
 	for block: Schedule.Block in assigned_therapists.keys():
 		var thx = assigned_therapists[block]
 		if thx is Therapist:
