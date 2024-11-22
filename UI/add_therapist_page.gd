@@ -46,6 +46,7 @@ var last_AC_id: int = 0
 
 func _ready() -> void:
 	ac_id_selector.value_changed.connect(confirm_id_change)
+
 	monday_am_checkbox.set_meta(meta_key, Schedule.Block.MONDAY_AM)
 	monday_pm_checkbox.set_meta(meta_key, Schedule.Block.MONDAY_PM)
 	tuesday_am_checkbox.set_meta(meta_key, Schedule.Block.TUESDAY_AM)
@@ -105,7 +106,7 @@ func _edit_therapist(thx: Therapist) -> void:
 	role_selector.select(role)
 
 	var id: int = therapist.AC_id
-	ac_id_selector.value = id
+	ac_id_selector.set_value_no_signal(id)
 	last_AC_id = id
 
 	for box: CheckBox in all_days:
@@ -193,7 +194,7 @@ func confirm_id_change(value: float) -> void:
 
 
 func _reset_id_selector() -> void:
-	ac_id_selector.value = last_AC_id
+	ac_id_selector.set_value_no_signal(last_AC_id)
 
 
 func _set_AC_id(value: float) -> void:
@@ -213,7 +214,7 @@ func reset_creator() -> void:
 		site_selector.select(0)
 
 	name_line.clear()
-	ac_id_selector.value = 0
+	ac_id_selector.set_value_no_signal(0)
 	therapist = Therapist.new()
 
 
