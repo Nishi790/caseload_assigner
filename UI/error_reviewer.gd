@@ -27,10 +27,7 @@ func _on_return_to_tab(id: int) -> void:
 
 
 func set_up_display() -> void:
-	clients_with_site_errors.clear()
-	staff_with_site_errors.clear()
-	pending_client_changes.clear()
-	pending_therapist_changes.clear()
+	clear_display()
 
 	_review_clients_for_site_errors()
 	_review_staff_for_site_errors()
@@ -93,9 +90,16 @@ func confirm_changes() -> void:
 			var site: Schedule.Site = change_data[block]
 			changed_thx.work_schedule[block] = site
 
+	set_up_display()
+
+
+func clear_display() -> void:
+	clients_with_site_errors.clear()
+	staff_with_site_errors.clear()
+	pending_client_changes.clear()
+	pending_therapist_changes.clear()
+
 	for entry: Control in client_site_error_container.get_children():
 		entry.queue_free()
 	for entry: Control in staff_site_error_container.get_children():
 		entry.queue_free()
-
-	set_up_display()
