@@ -136,7 +136,6 @@ func resort_thx_selector(block: Schedule.Block) -> void:
 	_sort_therapist_selector(block, thx_list)
 
 
-
 func find_block_selector(block: Schedule.Block) -> OptionButton:
 	for selector: OptionButton in all_selectors:
 		if selector.get_meta(block_name) == block:
@@ -154,20 +153,28 @@ func update_assigned_therapists() -> void:
 		var target_block: Schedule.Block = selector.get_meta(block_name)
 		if client.assigned_therapists.has(target_block):
 			var thx: Therapist = client.assigned_therapists[target_block]
-			if selector.get_selected_metadata() == thx:
-				continue
-			else:
-				for index: int in selector.item_count:
-					if selector.get_item_metadata(index) == thx:
-						selector.select(index)
-						selector.item_selected.emit(index)
-						continue
+			_select_therapist(selector, thx)
 		else:
+			selector.tooltip_text = "No Therapist"
 			if selector.selected == 0:
-				continue
+				if client.unfilled_slots.has(target_block):
+					selector.theme_type_variation = "unfilled"
+				else:
+					continue
 			else:
 				selector.select(0)
 				selector.item_selected.emit(0)
+
+
+func _select_therapist(selector: OptionButton, thx: Therapist) -> void:
+	if selector.get_selected_metadata() == thx:
+		return
+	else:
+		for index: int in selector.item_count:
+			if selector.get_item_metadata(index) == thx:
+				selector.select(index)
+				selector.item_selected.emit(index)
+				return
 
 
 func _sort_therapist_selector(block: Schedule.Block, thx_array: Array = CaseloadData.active_staff.values()) -> void:
@@ -202,7 +209,6 @@ func _sort_therapist_selector(block: Schedule.Block, thx_array: Array = Caseload
 		if thx == selected_therapist:
 			selector.select(selector_index)
 		selector_index += 1
-
 
 
 func sort_alphabetical(a: Therapist, b: Therapist) -> bool:
