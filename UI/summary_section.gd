@@ -41,6 +41,17 @@ var labels: Array[Label]
 var unfilled_entries: Array[UnfilledClientDisplay]
 var request_entries: Array[RequestedSlotDisplay]
 
+var mon_am_thx_list: Array[String]
+var mon_pm_thx_list: Array[String]
+var tues_am_thx_list: Array[String]
+var tues_pm_thx_list: Array[String]
+var wed_am_thx_list: Array[String]
+var wed_pm_thx_list: Array[String]
+var thurs_am_thx_list: Array[String]
+var thurs_pm_thx_list: Array[String]
+var fri_am_thx_list: Array[String]
+var fri_pm_thx_list: Array[String]
+
 var site: Schedule.Site
 
 func _ready() -> void:
@@ -78,10 +89,10 @@ func display_totals() -> void:
 	CaseloadData.alphabetize_lists()
 	for thx: Therapist in CaseloadData.alphabetical_staff:
 		for block: Schedule.Block in thx.admin_blocks:
-			if site != Schedule.Site.ALL_SITES and thx.work_schedule[block] == site:
-				increment_block_count(block)
-			elif site == Schedule.Site.ALL_SITES:
-				increment_block_count(block)
+			if site == Schedule.Site.ALL_SITES:
+				increment_block_count(block, thx.therapist_name)
+			elif thx.work_schedule[block] == site:
+				increment_block_count(block, thx.therapist_name)
 			else:
 				continue
 
@@ -176,15 +187,25 @@ func move_request_to_unfilled(request_display: RequestedSlotDisplay) -> void:
 
 func refresh_display() -> void:
 	mon_am_count = 0
+	mon_am_thx_list.clear()
 	tues_am_count = 0
+	tues_am_thx_list.clear()
 	wed_am_count = 0
+	wed_am_thx_list.clear()
 	thurs_am_count = 0
+	thurs_am_thx_list.clear()
 	fri_am_count = 0
+	fri_am_thx_list.clear()
 	mon_pm_count = 0
+	mon_pm_thx_list.clear()
 	tues_pm_count = 0
+	tues_pm_thx_list.clear()
 	wed_pm_count = 0
+	wed_pm_thx_list.clear()
 	thurs_pm_count = 0
+	thurs_pm_thx_list.clear()
 	fri_pm_count = 0
+	fri_pm_thx_list.clear()
 
 	for entry: UnfilledClientDisplay in unfilled_entries:
 		entry.queue_free()
@@ -293,43 +314,63 @@ func create_request_display(client: Client, dark: bool = true, position_index: i
 
 func _set_summary_labels() -> void:
 	avail_mon_am_label.set_text(str(mon_am_count))
+	avail_mon_am_label.tooltip_text = "\n".join(mon_am_thx_list)
 	avail_mon_pm_label.set_text(str(mon_pm_count))
+	avail_mon_pm_label.tooltip_text = "\n".join(mon_pm_thx_list)
 
 	avail_tues_am_label.set_text(str(tues_am_count))
+	avail_tues_am_label.tooltip_text = "\n".join(tues_am_thx_list)
 	avail_tues_pm_label.set_text(str(tues_pm_count))
+	avail_tues_pm_label.tooltip_text = "\n".join(tues_pm_thx_list)
 
 	avail_wed_am_label.set_text(str(wed_am_count))
+	avail_wed_am_label.tooltip_text = "\n".join(wed_am_thx_list)
 	avail_wed_pm_label.set_text(str(wed_pm_count))
+	avail_wed_pm_label.tooltip_text = "\n".join(wed_pm_thx_list)
 
 	avail_thurs_am_label.set_text(str(thurs_am_count))
+	avail_thurs_am_label.tooltip_text = "\n".join(thurs_am_thx_list)
 	avail_thurs_pm_label.set_text(str(thurs_pm_count))
+	avail_thurs_pm_label.tooltip_text = "\n".join(thurs_pm_thx_list)
 
 	avail_fri_am_label.set_text(str(fri_am_count))
+	avail_fri_am_label.tooltip_text = "\n".join(fri_am_thx_list)
 	avail_fri_pm_label.set_text(str(fri_pm_count))
+	avail_fri_pm_label.tooltip_text = "\n".join(fri_pm_thx_list)
 
 
-func increment_block_count(block: Schedule.Block) -> void:
+func increment_block_count(block: Schedule.Block, thx_name: String) -> void:
 	match block:
 		Schedule.Block.MONDAY_AM:
 			mon_am_count += 1
+			mon_am_thx_list.append(thx_name)
 		Schedule.Block.MONDAY_PM:
 			mon_pm_count += 1
+			mon_pm_thx_list.append(thx_name)
 		Schedule.Block.TUESDAY_AM:
 			tues_am_count += 1
+			tues_am_thx_list.append(thx_name)
 		Schedule.Block.TUESDAY_PM:
 			tues_pm_count += 1
+			tues_pm_thx_list.append(thx_name)
 		Schedule.Block.WEDNESDAY_AM:
 			wed_am_count += 1
+			wed_am_thx_list.append(thx_name)
 		Schedule.Block.WEDNESDAY_PM:
 			wed_pm_count += 1
+			wed_pm_thx_list.append(thx_name)
 		Schedule.Block.THURSDAY_AM:
 			thurs_am_count += 1
+			thurs_am_thx_list.append(thx_name)
 		Schedule.Block.THURSDAY_PM:
 			thurs_pm_count += 1
+			thurs_pm_thx_list.append(thx_name)
 		Schedule.Block.FRIDAY_AM:
 			fri_am_count += 1
+			fri_am_thx_list.append(thx_name)
 		Schedule.Block.FRIDAY_PM:
 			fri_pm_count += 1
+			fri_pm_thx_list.append(thx_name)
 
 
 func propagate_color_change(index: int, container: Container, first_one_dark: bool) -> void:
