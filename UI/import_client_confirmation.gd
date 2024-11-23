@@ -195,7 +195,7 @@ func _transfer_all_client_data() -> void:
 	if imported_client.scheduled_site != Schedule.Site.ALL_SITES:
 		saved_client.scheduled_site = imported_client.scheduled_site
 	elif existing_client_site_selector.get_selected_id() < 10:
-		saved_client.scheduled_site = existing_client_site_selector.get_selected_id()
+		saved_client.scheduled_site = existing_client_site_selector.get_selected_id() as Schedule.Site
 
 	saved_client.assigned_therapists = imported_client.assigned_therapists
 	for block: Schedule.Block in saved_client.assigned_therapists:
@@ -208,7 +208,7 @@ func _transfer_all_client_data() -> void:
 func _transfer_selected_data() -> void:
 	if new_client_site_box.button_pressed and imported_client.scheduled_site != Schedule.Site.ALL_SITES:
 		saved_client.scheduled_site = imported_client.scheduled_site
-	else: saved_client.scheduled_site = existing_client_site_selector.get_selected_id() - 1
+	else: saved_client.scheduled_site = existing_client_site_selector.get_selected_id() - 1 as Schedule.Site
 
 	var blocks_affected: Array[Schedule.Block] = []
 	for box: CheckBox in import_client_block_boxes:

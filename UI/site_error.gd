@@ -14,5 +14,5 @@ func _ready() -> void:
 
 
 func _select_site(index: int) -> void:
-	var site: Schedule.Site = site_selector.get_item_id(index) - 1
+	var site: Schedule.Site = (site_selector.get_item_id(index) - 1) as Schedule.Site
 	site_selected.emit(site)
